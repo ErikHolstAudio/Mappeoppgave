@@ -1,0 +1,2 @@
+Enemy model from https://sketchfab.com/3d-models/super-low-poly-character-free-f3311d6ff64a4a07ab263eb0b07201e2
+Player model from https://sketchfab.com/3d-models/low-poly-character-31039b92d84d4d9d8c6bf7a44f0b63aa
