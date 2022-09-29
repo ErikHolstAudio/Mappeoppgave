@@ -6,9 +6,8 @@ CONFIG      += c++17
 TARGET      = 3D-programmering
 
 SOURCES += main.cpp \
-    Matrix4x4/matrix4x4.h \
-    Matrix4x4/vector3d.h \
-    Matrix4x4/vertex.h \
+    Matrix4x4/matrix4x4.cpp \
+    Matrix4x4/vertex.cpp \
     beziercurve.cpp \
     billboard.cpp \
     boundingshape.cpp \
@@ -54,8 +53,9 @@ SOURCES += main.cpp \
     xyz.cpp
 
 HEADERS += \
-    Matrix4x4/matrix4x4.cpp \
-    Matrix4x4/vertex.cpp \
+    Matrix4x4/matrix4x4.h \
+    Matrix4x4/vector3d.h \
+    Matrix4x4/vertex.h \
     beziercurve.h \
     billboard.h \
     boundingshape.h \

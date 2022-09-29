@@ -4,6 +4,7 @@
 #include "octahedronball.h"
 #include "trianglesurface.h"
 #include "heightmap.h"
+#include "Matrix4x4/matrix4x4.h"
 
 class Line;
 

@@ -10,6 +10,7 @@
 #include "boundingshape.h"
 #include "shader.h"
 #include "texture.h"
+#include "Matrix4x4/matrix4x4.h"
 
 class RenderWindow;
 class Scene;
