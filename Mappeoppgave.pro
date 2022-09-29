@@ -28,6 +28,7 @@ SOURCES += main.cpp \
     npc.cpp \
     obj.cpp \
     octahedronball.cpp \
+    pointcloud.cpp \
     projectile.cpp \
     quad.cpp \
     renderwindow.cpp \
@@ -76,6 +77,7 @@ HEADERS += \
     npc.h \
     obj.h \
     octahedronball.h \
+    pointcloud.h \
     projectile.h \
     quad.h \
     renderwindow.h \
