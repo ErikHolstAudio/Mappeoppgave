@@ -28,6 +28,7 @@
 #include "scene2.h"
 #include "scene3.h"
 #include "examscene.h"
+#include "physicsscene.h"
 #include "texture.h"
 #include "shader.h"
 #include "quad.h"
@@ -36,6 +37,7 @@
 #include "light.h"
 #include "camera.h"
 #include "glm/gtc/type_ptr.hpp"
+#include "rollingball.h"
 
 RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     : mContext(nullptr), mInitialized(false), mMainWindow(mainWindow)
@@ -138,11 +140,12 @@ void RenderWindow::init()
     mScenes.push_back(new Scene3(mScenes, mShaderHandler, *this));
 
     mScenes.push_back(new examscene(mScenes, mShaderHandler, *this));
+    mScenes.push_back(new PhysicsScene(mScenes, mShaderHandler, *this));
 
     for (auto it = mScenes.begin(); it != mScenes.end(); it++)
         (*it)->updateScenes(mScenes);
 
-    activeScene = mScenes[3];
+    activeScene = mScenes[4];
     activeScene->activateScene();
 
     player = activeScene->getPlayer();
@@ -507,7 +510,7 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
         if (event->key() == Qt::Key_4)
         {
             activeScene->deactivateScene();
-            activeScene = mScenes[3];
+            activeScene = mScenes[4];
             activeScene->activateScene();
         }
     }
@@ -578,5 +581,13 @@ void RenderWindow::debugModeToggle()
     {
         debugCameraToggle();
         bDebugMode = false;
+    }
+}
+
+void RenderWindow::setNum(int value)
+{
+    RollingBall* RB{nullptr};
+    for (int i{}; i<=value ;i++ ) {
+        //RB=new RollingBall(*this, mShaderHandler->mShaderProgram[1], 0.5f,QVector3D(0.f,0.75f,0.75f))
     }
 }

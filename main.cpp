@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 
     //Makes the Qt MainWindow and shows it.
     MainWindow w;
-    w.show();
+    w.showMaximized();
 
     return a.exec();
 }

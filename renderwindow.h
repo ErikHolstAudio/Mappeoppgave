@@ -46,6 +46,7 @@ public:
 
     bool bDebugMode{ false };
     void debugModeToggle();
+    void setNum(int value);
 private slots:
     void render();          //the actual render - function
 

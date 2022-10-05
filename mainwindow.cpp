@@ -102,3 +102,14 @@ void MainWindow::on_DebugMode_toggled(bool checked)
     }
 }
 
+void MainWindow::on_SpawnBalls_clicked()
+{
+}
+
+
+void MainWindow::on_BallSliderInt_valueChanged(int value)
+{
+    mBallsToSpawn = value;
+    ui->BallInt->setNum(mBallsToSpawn);
+}
+

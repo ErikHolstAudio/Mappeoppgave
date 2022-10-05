@@ -18,16 +18,19 @@ SOURCES += main.cpp \
     door1.cpp \
     door2.cpp \
     enemy.cpp \
+    equidistance.cpp \
     examscene.cpp \
     heightmap.cpp\
     house.cpp \
     interactiveobject.cpp \
+    lazsurface.cpp \
     light.cpp \
     logger.cpp \
     mainwindow.cpp \
     npc.cpp \
     obj.cpp \
     octahedronball.cpp \
+    physicsscene.cpp \
     pointcloud.cpp \
     projectile.cpp \
     quad.cpp \
@@ -67,16 +70,19 @@ HEADERS += \
     door1.h \
     door2.h \
     enemy.h \
+    equidistance.h \
     examscene.h \
     heightmap.h\
     house.h \
     interactiveobject.h \
+    lazsurface.h \
     light.h \
     logger.h \
     mainwindow.h \
     npc.h \
     obj.h \
     octahedronball.h \
+    physicsscene.h \
     pointcloud.h \
     projectile.h \
     quad.h \

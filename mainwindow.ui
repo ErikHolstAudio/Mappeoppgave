@@ -600,7 +600,7 @@
       <x>1230</x>
       <y>10</y>
       <width>161</width>
-      <height>131</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -666,14 +666,56 @@
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QSlider" name="BallSliderInt">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="BallInt">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>170</y>
+       <width>21</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="SpawnBalls">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>80</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Spawn Balls</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
       <x>1229</x>
-      <y>149</y>
+      <y>689</y>
       <width>161</width>
-      <height>791</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -1338,5 +1380,22 @@ Trykk på ESC eller CTRL+Q for å avslutte
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>BallSliderInt</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>BallInt</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1311</x>
+     <y>171</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1328</x>
+     <y>221</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

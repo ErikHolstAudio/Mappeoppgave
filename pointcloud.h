@@ -2,10 +2,9 @@
 
 #include <math.h>
 #include <iostream>
-
 #include <vector>
-
 #include "visualobject.h"
+#include "Matrix4x4/vertex.h"
 
 class PointCloud : public VisualObject
 {
@@ -14,13 +13,14 @@ public:
     PointCloud();
     ~PointCloud();
 
-    virtual void init(GLint matrixUniform);
+    virtual void init();
     virtual void draw();
 
-    long double mScaleMultiplyX{ 0.1f };
-    long double mScaleMultiplyY{ 0.1f };
-    long double mScaleMultiplyZ{ 0.001f };
+    long double mScaleMultiplyX{ 1.f };
+    long double mScaleMultiplyY{ 1.f };
+    long double mScaleMultiplyZ{ 1.f };
 
-    long double mOffsetX{ 612500 };
-    long double mOffsetY{ 6742790 };
+    long double mOffsetX{ 473213.f + 1110 / 2 };
+    long double mOffsetY{ 6835647.f + 2110 / 2 };
+    long double mOffsetZ{ 1734 };
 };
