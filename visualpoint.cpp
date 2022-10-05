@@ -6,12 +6,12 @@ VisualPoint::VisualPoint(Scene& scene, Shader* shaderProgram) : VisualObject(sce
 
 }
 
-VisualPoint::VisualPoint(Scene& scene, Shader* shaderProgram, const Vertex &v) : VisualObject(scene, shaderProgram)
+VisualPoint::VisualPoint(Scene& scene, Shader* shaderProgram, const gsml::Vertex &v) : VisualObject(scene, shaderProgram)
 {
     mVertices.push_back(v);
 }
 
-VisualPoint::VisualPoint(Scene& scene, Shader* shaderProgram, std::vector<Vertex> points) : VisualObject(scene, shaderProgram), mPoints {points}
+VisualPoint::VisualPoint(Scene& scene, Shader* shaderProgram, std::vector<gsml::Vertex> points) : VisualObject(scene, shaderProgram), mPoints {points}
 {
     for (auto it = mPoints.begin(); it != mPoints.end(); it++)
         mVertices.push_back(*it);
@@ -32,15 +32,15 @@ void VisualPoint::init()
     glGenBuffers( 1, &mVBO );
     glBindBuffer( GL_ARRAY_BUFFER, mVBO );
 
-    glBufferData( GL_ARRAY_BUFFER, mVertices.size()*sizeof( Vertex), mVertices.data(), GL_STATIC_DRAW);
+    glBufferData( GL_ARRAY_BUFFER, mVertices.size()*sizeof( gsml::Vertex), mVertices.data(), GL_STATIC_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,sizeof(Vertex), reinterpret_cast<GLvoid*>(0 ));     // array buffer offset
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,sizeof(gsml::Vertex), reinterpret_cast<GLvoid*>(0 ));     // array buffer offset
 
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,sizeof(Vertex), reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)) );
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,sizeof(gsml::Vertex), reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)) );
 
     glEnableVertexAttribArray(1);
 

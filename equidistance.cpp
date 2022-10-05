@@ -5,18 +5,18 @@ Equidistance::Equidistance(Scene& scene, Shader* shaderProgram): VisualObject(sc
     mMatrix.setToIdentity();
 }
 
-Equidistance::Equidistance(gsml::Vector3d a,Scene& scene, Shader* shaderProgram, gsml::Vector3d b) : VisualObject(scene, shaderProgram)
+Equidistance::Equidistance(QVector3D a,Scene& scene, Shader* shaderProgram, QVector3D b) : VisualObject(scene, shaderProgram)
 {
-    mVertices.push_back(gsml::Vertex{a.x, a.y, a.z,1,1,1});
-    mVertices.push_back(gsml::Vertex{b.x, b.y, b.z,1,1,1});
+    mVertices.push_back(gsml::Vertex{a.x(), a.y(), a.z(),1,1,1});
+    mVertices.push_back(gsml::Vertex{b.x(), b.y(), b.z(),1,1,1});
 
     mMatrix.setToIdentity();
 }
 
-void Equidistance::insertLine(gsml::Vector3d a, gsml::Vector3d b)
+void Equidistance::insertLine(QVector3D a, QVector3D b)
 {
-    mVertices.push_back(gsml::Vertex{a.x, a.y, a.z,1,1,1});
-    mVertices.push_back(gsml::Vertex{b.x, b.y, b.z,1,1,1});
+    mVertices.push_back(gsml::Vertex{a.x(), a.y(), a.z(),1,1,1});
+    mVertices.push_back(gsml::Vertex{b.x(), b.y(), b.z(),1,1,1});
 }
 
 void Equidistance::init()

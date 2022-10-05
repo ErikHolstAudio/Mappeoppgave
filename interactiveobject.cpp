@@ -97,7 +97,7 @@ void InteractiveObject::move(float dx, float dy, float dz)
     {
         if (mHeightmap)
         {
-            mz = mHeightmap->getHeight(gsml::Vec3(mx, my, mz));
+            mz = mHeightmap->getHeight(glm::vec3(mx, my, mz));
 
             mModel->move(mx, my, mz);
 
@@ -123,7 +123,7 @@ void InteractiveObject::move(float dx, float dy, float dz)
     {
         if (mHeightmap)
         {
-            mz = mHeightmap->getHeight(gsml::Vec3(mx, my, mz));
+            mz = mHeightmap->getHeight(glm::vec3(mx, my, mz));
 
             QVector4D pos{ mx,my,mz,1.0f };
             mPosition.setColumn(3, pos);

@@ -219,20 +219,20 @@ void Scene::collisionCheck()
             (*it)->collision(getPlayer());
     if (!blockPlayer)
         getPlayer()->bBlockPlayer = false;
-    bool blockEnemy = false;
-    if (mMap["enemy"])
-    {
-        auto posisjon = mMap["enemy"]->getPosition2D();
-        auto subtre = mQuadTre.find(posisjon);
-        for (auto it = subtre->begin(); it != subtre->end(); it++)
-            if ((*it)->bShape && mMap["enemy"]->bShape->overlap((*it)->bShape))
-                (*it)->collision(mMap["enemy"]);
-    }
-    if (!blockEnemy)
-    {
-        dynamic_cast<Enemy*>(mMap["enemy"])->bBlockPlayer = false;
-        dynamic_cast<Enemy*>(mMap["enemy"])->getDestination(mEnemyTokens);
-    }
+  //  bool blockEnemy = false;
+  //  if (mMap["enemy"])
+  //  {
+  //      auto posisjon = mMap["enemy"]->getPosition2D();
+  //      auto subtre = mQuadTre.find(posisjon);
+  //      for (auto it = subtre->begin(); it != subtre->end(); it++)
+  //          if ((*it)->bShape && mMap["enemy"]->bShape->overlap((*it)->bShape))
+  //              (*it)->collision(mMap["enemy"]);
+  //  }
+  //  if (!blockEnemy)
+  //  {
+  //      dynamic_cast<Enemy*>(mMap["enemy"])->bBlockPlayer = false;
+  //      dynamic_cast<Enemy*>(mMap["enemy"])->getDestination(mEnemyTokens);
+  //  }
 }
 
 void Scene::nextScene()

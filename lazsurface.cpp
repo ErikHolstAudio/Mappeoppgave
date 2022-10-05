@@ -284,7 +284,7 @@ Equidistance* LAZSurface::constructEquidistance()
 
         // Checks if there should be a line drawn at the bottom of the triangle
         if(midHeight == minHeight && midHeight != maxHeight && fmod(minHeight, mEquidistance) == 0)
-            mEquiLines->insertLine(abc[0]->getXYZ(), abc[1]->getXYZ());
+            mEquiLines->insertLine(QVector3D(abc[0]->getXYZ().x,abc[0]->getXYZ().y,abc[0]->getXYZ().z), QVector3D(abc[1]->getXYZ().x,abc[1]->getXYZ().y,abc[1]->getXYZ().z));
 
         //Checks if the triangle has an equidistance line passing through it
         if(maxHeight >= minHeight + mEquidistance - fmod(minHeight, mEquidistance))
@@ -294,24 +294,24 @@ Equidistance* LAZSurface::constructEquidistance()
             float checkHeight = minHeight + mEquidistance - fmod(minHeight, mEquidistance);
             // Every line crossing the triangle HAS to at least have one point on the line between the lowest and the highest vertices
             //First point
-            direction = abc[2]->getXYZ() - abc[0]->getXYZ();
+            direction = QVector3D(abc[2]->getXYZ().x, abc[2]->getXYZ().y, abc[2]->getXYZ().z) - QVector3D(abc[0]->getXYZ().x,abc[0]->getXYZ().y,abc[0]->getXYZ().z);
             direction.normalize();
             float multiplier = (checkHeight - minHeight)/direction.z();
-            p0 = abc[0]->getXYZ() + (direction * multiplier);
+            p0 = QVector3D(abc[0]->getXYZ().x,abc[0]->getXYZ().y,abc[0]->getXYZ().z) + (direction * multiplier);
             // Second point
             if(checkHeight <= midHeight) // Second point is on line AB
             {
-                direction = abc[1]->getXYZ() - abc[0]->getXYZ();
+                direction = QVector3D(abc[1]->getXYZ().x,abc[1]->getXYZ().y,abc[1]->getXYZ().z) - QVector3D(abc[0]->getXYZ().x, abc[0]->getXYZ().y, abc[0]->getXYZ().z);
                 direction.normalize();
                 float multiplier = (checkHeight - minHeight)/direction.z();
-                p1 = abc[0]->getXYZ() + (direction * multiplier);
+                p1 = QVector3D(abc[0]->getXYZ().x,abc[0]->getXYZ().y,abc[0]->getXYZ().z) + (direction * multiplier);
             }
             else // Second point is on line BC
             {
-                direction = abc[2]->getXYZ() - abc[1]->getXYZ();
+                direction = QVector3D(abc[2]->getXYZ().x,abc[2]->getXYZ().y,abc[2]->getXYZ().z) - QVector3D(abc[1]->getXYZ().x,abc[1]->getXYZ().y,abc[1]->getXYZ().z);
                 direction.normalize();
                 float multiplier = (checkHeight - midHeight)/direction.z();
-                p1 = abc[1]->getXYZ() + (direction * multiplier);
+                p1 = QVector3D(abc[1]->getXYZ().x,abc[1]->getXYZ().y,abc[1]->getXYZ().z) + (direction * multiplier);
             }
             mEquiLines->insertLine(p0, p1);
 
@@ -321,30 +321,30 @@ Equidistance* LAZSurface::constructEquidistance()
                 checkHeight += mEquidistance;
                 // The line should be drawn on the top of the triangle
                 if(maxHeight == minHeight && checkHeight + mEquidistance == maxHeight){
-                    mEquiLines->insertLine(abc[1]->getXYZ(), abc[2]->getXYZ());
+                    mEquiLines->insertLine(QVector3D(abc[1]->getXYZ().x,abc[1]->getXYZ().y,abc[1]->getXYZ().z), QVector3D(abc[2]->getXYZ().x,abc[2]->getXYZ().y,abc[2]->getXYZ().z));
                 }
                 // The line should be going through the triangle
                 else {
                     //First point
-                    direction = abc[2]->getXYZ() - abc[0]->getXYZ();
+                    direction = QVector3D(abc[2]->getXYZ().x,abc[2]->getXYZ().y,abc[2]->getXYZ().z) - QVector3D(abc[0]->getXYZ().x, abc[0]->getXYZ().y, abc[0]->getXYZ().z);
                     direction.normalize();
                     float multiplier = (checkHeight - minHeight)/direction.z();
-                    p0 = abc[0]->getXYZ() + (direction * multiplier);
+                    p0 = QVector3D(abc[0]->getXYZ().x, abc[0]->getXYZ().y, abc[0]->getXYZ().z) + (direction * multiplier);
 
                     // Second point
                     if(checkHeight <= midHeight) // Second point is on line AB
                     {
-                        direction = abc[1]->getXYZ() - abc[0]->getXYZ();
+                        direction = QVector3D(abc[1]->getXYZ().x,abc[1]->getXYZ().y,abc[1]->getXYZ().z) - QVector3D(abc[0]->getXYZ().x, abc[0]->getXYZ().y, abc[0]->getXYZ().z);
                         direction.normalize();
                         float multiplier = (checkHeight - minHeight)/direction.z();
-                        p1 = abc[0]->getXYZ() + (direction * multiplier);
+                        p1 = QVector3D(abc[0]->getXYZ().x, abc[0]->getXYZ().y, abc[0]->getXYZ().z) + (direction * multiplier);
                     }
                     else // Second point is on line BC
                     {
-                        direction = abc[2]->getXYZ() - abc[1]->getXYZ();
+                        direction = QVector3D(abc[2]->getXYZ().x,abc[2]->getXYZ().y,abc[2]->getXYZ().z) - QVector3D(abc[1]->getXYZ().x,abc[1]->getXYZ().y,abc[1]->getXYZ().z);
                         direction.normalize();
                         float multiplier = (checkHeight - midHeight)/direction.z();
-                        p1 = abc[1]->getXYZ() + (direction * multiplier);
+                        p1 = QVector3D(abc[1]->getXYZ().x,abc[1]->getXYZ().y,abc[1]->getXYZ().z) + (direction * multiplier);
                     }
                     mEquiLines->insertLine(p0, p1);
                 }
@@ -380,26 +380,26 @@ std::vector<QVector3D> LAZSurface::getTriangleVertices(QVector3D pos)
                     //int v3 = x + (y+1)*mGridSizeX; // Unused when commented out
 
                     QVector3D barycResult;
-                    barycResult = calcBarycentric(pos.toVector2D(), mVertices[v0].getXYZ().toVector2D(), mVertices[v1].getXYZ().toVector2D(), mVertices[v2].getXYZ().toVector2D());
+                    barycResult = calcBarycentric(pos.toVector2D(), QVector2D(mVertices[v0].getXYZ().x,mVertices[v0].getXYZ().y), QVector2D(mVertices[v1].getXYZ().x,mVertices[v1].getXYZ().y) , QVector2D(mVertices[v2].getXYZ().x,mVertices[v2].getXYZ().y));
 
                     //Checks the first triangle if the ball is within on the x and y axis
                     if (barycResult.x() + barycResult.y() + barycResult.z() >= 0.99999 && barycResult.x() + barycResult.y() + barycResult.z() <= 1.00001)
                     {
                         std::vector<QVector3D> result;
-                        result.push_back(mVertices[v0].getXYZ());
-                        result.push_back(mVertices[v1].getXYZ());
-                        result.push_back(mVertices[v2].getXYZ());
+                        result.push_back(QVector3D(mVertices[v0].getXYZ().x,mVertices[v0].getXYZ().y,mVertices[v0].getXYZ().z));
+                        result.push_back(QVector3D(mVertices[v1].getXYZ().x,mVertices[v1].getXYZ().y,mVertices[v1].getXYZ().z));
+                        result.push_back(QVector3D(mVertices[v2].getXYZ().x,mVertices[v2].getXYZ().y,mVertices[v2].getXYZ().z));
                         return result;
                     }
 
                     //Checks the second triangle
-                    barycResult = calcBarycentric(pos.toVector2D(), mVertices[v0].getXYZ().toVector2D(), mVertices[v1].getXYZ().toVector2D(), mVertices[v2].getXYZ().toVector2D());
+                    barycResult = calcBarycentric(pos.toVector2D(), QVector2D(mVertices[v0].getXYZ().x,mVertices[v0].getXYZ().y), QVector2D(mVertices[v1].getXYZ().x,mVertices[v1].getXYZ().y) , QVector2D(mVertices[v2].getXYZ().x,mVertices[v2].getXYZ().y));
                     if(barycResult.x() + barycResult.y() + barycResult.z() >= 0.99999 && barycResult.x() + barycResult.y() + barycResult.z() <= 1.00001)
                     {
                         std::vector<QVector3D> result;
-                        result.push_back(mVertices[v0].getXYZ());
-                        result.push_back(mVertices[v1].getXYZ());
-                        result.push_back(mVertices[v2].getXYZ());
+                        result.push_back(QVector3D(mVertices[v0].getXYZ().x,mVertices[v0].getXYZ().y,mVertices[v0].getXYZ().z));
+                        result.push_back(QVector3D(mVertices[v1].getXYZ().x,mVertices[v1].getXYZ().y,mVertices[v1].getXYZ().z));
+                        result.push_back(QVector3D(mVertices[v2].getXYZ().x,mVertices[v2].getXYZ().y,mVertices[v2].getXYZ().z));
                         return result;
                     }
                     else {std::cout << "Error! Something went wrong in LAZSurface, when calculating Barycentric coordinates, in getTriangleVertices"; }

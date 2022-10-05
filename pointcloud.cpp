@@ -21,7 +21,7 @@ void PointCloud::init()
     std::ifstream file;
 
     //Open file
-    file.open("Surface/GlitterholetShortened.txt");
+    file.open("../Mappeoppgave/Surface/GlitterholetShortened.txt");
 
     if (!file)
     {

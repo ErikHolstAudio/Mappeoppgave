@@ -139,13 +139,13 @@ void RenderWindow::init()
     mScenes.push_back(new Scene2(mScenes, mShaderHandler, *this, 15.f));
     mScenes.push_back(new Scene3(mScenes, mShaderHandler, *this));
 
-    mScenes.push_back(new examscene(mScenes, mShaderHandler, *this));
+    //mScenes.push_back(new examscene(mScenes, mShaderHandler, *this));
     mScenes.push_back(new PhysicsScene(mScenes, mShaderHandler, *this));
 
     for (auto it = mScenes.begin(); it != mScenes.end(); it++)
         (*it)->updateScenes(mScenes);
 
-    activeScene = mScenes[4];
+    activeScene = mScenes[3];
     activeScene->activateScene();
 
     player = activeScene->getPlayer();
@@ -491,7 +491,7 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
         if (event->key() == Qt::Key_4)
         {
             activeScene->deactivateScene();
-            activeScene = mScenes[4];
+            activeScene = mScenes[3];
             activeScene->activateScene();
         }
     }

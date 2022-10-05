@@ -8,8 +8,8 @@ class Equidistance : public VisualObject
 {
 public:
     Equidistance(Scene& scene, Shader* shaderProgram);
-    Equidistance(gsml::Vector3d a, Scene& scene, Shader* shaderProgram, gsml::Vector3d b);
-    void insertLine(gsml::Vector3d a, gsml::Vector3d b);
+    Equidistance(QVector3D a, Scene& scene, Shader* shaderProgram, QVector3D b);
+    void insertLine(QVector3D a, QVector3D b);
     void init() override;
     void draw() override;
 };

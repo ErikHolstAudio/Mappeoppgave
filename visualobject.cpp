@@ -51,7 +51,7 @@ void VisualObject::init()
     glEnableVertexAttribArray(1);
 
     // 3rd attribute buffer : uvs
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(6 * sizeof(GLfloat)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)(6 * sizeof(GLfloat)));
     glEnableVertexAttribArray(2);
 
     //enable the matrixUniform
@@ -129,11 +129,11 @@ void VisualObject::calculateNormals()
         index++;
         if (index == 3)
         {
-            QVector3D a(mVertices[i - 2].getXYZ());
-            QVector3D b(mVertices[i - 1].getXYZ());
-            QVector3D c(mVertices[i].getXYZ());
+            gsml::Vec3 a(mVertices[i - 2].getXYZ());
+            gsml::Vec3 b(mVertices[i - 1].getXYZ());
+            gsml::Vec3 c(mVertices[i].getXYZ());
 
-            QVector3D normal = QVector3D::crossProduct(b - a, c - a);
+            gsml::Vec3  normal = ((b - a).cross(c - a));
 
             normal.normalize();
 

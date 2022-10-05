@@ -7,6 +7,7 @@
 #include "renderwindow.h"
 #include "shaderhandler.h"
 #include "skybox.h"
+#include "octahedronball.h"
 #include "rollingball.h"
 #include "equidistance.h"
 #include "pointcloud.h"
@@ -20,6 +21,10 @@ PhysicsScene::PhysicsScene(std::vector<Scene *> scenes, ShaderHandler *handler, 
     quadDrawHeight = 1.7f;
     createObjects();
     initQuadTre();
+}
+
+PhysicsScene::~PhysicsScene()
+{
 }
 
 void PhysicsScene::init()
@@ -52,6 +57,12 @@ void PhysicsScene::renderCamera()
 void PhysicsScene::createObjects()
 {
     VisualObject* temp;
+    //heightmap
+    mObjects.push_back(temp = new HeightMap(*this, mShaderHandler->mShaderProgram[2], new Texture("../Mappeoppgave/Assets/EksamenHeightmap.bmp"),1,0.1f,0.5f,-30.f));
+    temp->setName("heightmap");
+    temp->loadTexture(new Texture("../Mappeoppgave/Assets/grass2.bmp"));
+    mapSize = dynamic_cast<HeightMap*>(temp)->getSize() / 2;
+
     //Spiller
     mObjects.push_back(temp = new InteractiveObject(*this, mShaderHandler->mShaderProgram[0], new OBJ(*this, mShaderHandler->mShaderProgram[2],
                                                                                                       "../Mappeoppgave/Assets/characters/player.obj",
@@ -63,5 +74,8 @@ void PhysicsScene::createObjects()
     //Skybox
     mObjects.push_back(temp = new SkyBox(*this, mShaderHandler->mShaderProgram[3]));
     temp->setName("skybox");
+    for (auto it = mObjects.begin(); it != mObjects.end(); it++)
+        mMap.insert(std::pair<std::string, VisualObject*>((*it)->getName(), *it));
+    dynamic_cast<InteractiveObject*>(mMap["player"])->setHeightmap(static_cast<HeightMap*>(mMap["heightmap"]));
 }
 

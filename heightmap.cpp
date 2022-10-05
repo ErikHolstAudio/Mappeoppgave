@@ -272,22 +272,22 @@ void HeightMap::calcNormals()
     {
         for (int x = xmin; x < xmax - 1; x++)
         {
-            QVector3D a(mVertices[x + (ymax * y)].getXYZ());
-            QVector3D b(mVertices[x + 1 + (ymax * y)].getXYZ());
-            QVector3D c(mVertices[x + 1 + (ymax * (y + 1))].getXYZ());
-            QVector3D d(mVertices[x + (ymax * (y + 1))].getXYZ());
-            QVector3D e(mVertices[x - 1 + (ymax * y)].getXYZ());
-            QVector3D f(mVertices[x - 1 + (ymax * (y - 1))].getXYZ());
-            QVector3D g(mVertices[x + (ymax * (y - 1))].getXYZ());
+            gsml::Vec3  a(mVertices[x + (ymax * y)].getXYZ());
+            gsml::Vec3  b(mVertices[x + 1 + (ymax * y)].getXYZ());
+            gsml::Vec3  c(mVertices[x + 1 + (ymax * (y + 1))].getXYZ());
+            gsml::Vec3  d(mVertices[x + (ymax * (y + 1))].getXYZ());
+            gsml::Vec3  e(mVertices[x - 1 + (ymax * y)].getXYZ());
+            gsml::Vec3  f(mVertices[x - 1 + (ymax * (y - 1))].getXYZ());
+            gsml::Vec3  g(mVertices[x + (ymax * (y - 1))].getXYZ());
 
-            auto n0 = QVector3D::crossProduct(b - a, c - a);
-            auto n1 = QVector3D::crossProduct(c - a, d - a);
-            auto n2 = QVector3D::crossProduct(d - a, e - a);
-            auto n3 = QVector3D::crossProduct(e - a, f - a);
-            auto n4 = QVector3D::crossProduct(f - a, g - a);
-            auto n5 = QVector3D::crossProduct(g - a, b - a);
+            auto n0 = ((b - a).cross(c - a));
+            auto n1 = ((c - a).cross(d - a));
+            auto n2 = ((d - a).cross(e - a));
+            auto n3 = ((e - a).cross(f - a));
+            auto n4 = ((f - a).cross(g - a));
+            auto n5 = ((g - a).cross(b - a));
 
-            QVector3D normal = n0 + n1 + n2 + n3 + n4 + n5;
+            gsml::Vec3 normal = n0 + n1 + n2 + n3 + n4 + n5;
             normal.normalize();
 
             mVertices[x + (ymax * y)].setNormals(normal);
