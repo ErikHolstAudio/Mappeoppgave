@@ -25,13 +25,9 @@ private slots:
     ///Slot called from the button in the mainwindow.ui file
     void on_DebugMode_toggled(bool checked);
 
-    void on_horizontalSlider_valueChanged(int value);
-
     void on_SpawnBalls_clicked();
 
     void on_BallSliderInt_valueChanged(int value);
-
-    void on_BallInt_linkActivated(const QString &link);
 
 private:
     ///called from the constructor. Initializes different parts of the program.

@@ -31,7 +31,7 @@ class Vertex
     //! Overloaded ostream operator which reads all vertex data from an open textfile stream
     friend std::istream& operator>> (std::istream&, Vertex&);
 
-private:
+public:
      //GLfloat m_rgba[4];
     float m_xyz[3];       // position i 3D
     float m_normal[3];    // normal in 3D or rgb colors
@@ -42,22 +42,27 @@ private:
         GLfloat m_normal[3];
     };*/
     float m_st[2];        // texture coordiantes if used
+    float m_uv[2];
 
-public:
     Vertex();
     Vertex(float x, float y, float z, float r, float g, float b);
     Vertex(float x, float y, float z, float r, float g, float b, float s, float t);
-
+    Vertex(Vector3d a, Vector3d b, Vector2d c);
     ~Vertex();
+    float x();
+    float y();
+    float z();
     void set_xyz(GLfloat* xyz);
     void set_xyz(GLfloat x, GLfloat y, GLfloat z);
     void set_rgb(GLfloat* rgb);
     void set_rgb(GLfloat r, GLfloat g, GLfloat b);
     void set_normal(GLfloat* normal);
     void set_normal(GLfloat x, GLfloat y, GLfloat z);
+    void setNormals(Vector3d normals);
     void set_st(GLfloat* st);
     void set_st(GLfloat s, GLfloat t);
     void set_uv(GLfloat u, GLfloat v);
+    void setUVs(Vector2d UVs);
     void data(float v[]) const;
     gsml::Vector3d getXYZ() const;
     void operator = (const Vertex& v);

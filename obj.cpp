@@ -165,7 +165,7 @@ void OBJ::loadOBJ(std::string file_dir)
 		}
 
 		// Build final vertex array (mesh)
-		mVertices.resize(vertex_position_indicies.size(), Vertex());
+        mVertices.resize(vertex_position_indicies.size(), gsml::Vertex());
 
 		for (size_t i = 0; i < mVertices.size(); i++)
 		{

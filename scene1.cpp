@@ -74,7 +74,7 @@ void Scene1::createObjects()
     //mObjects.push_back(temp = new Disc());
     //temp->setName("disc");
     Shader* plainShader = mShaderHandler->mShaderProgram[0];
-    mObjects.push_back(temp = new TriangleSurface(*this, plainShader, "surface.txt", mapSize)); // To change location to the root folder: ("../Konteeksamen_3DProg22/surface.txt")
+    mObjects.push_back(temp = new TriangleSurface(*this, plainShader, "surface.txt", mapSize)); // To change location to the root folder: ("../Mappeoppgave/surface.txt")
 	temp->setName("surface");
     int surfacePosition{ (int)mObjects.size() - 1 };
 
@@ -132,21 +132,21 @@ void Scene1::createObjects()
 
 void Scene1::createRoutes()
 {
-    std::vector<Vertex> route1Points;
-    route1Points.push_back(Vertex{ 1.f,2.f,0.f, 0,1,0 });
-    route1Points.push_back(Vertex{ 3.f,5.f,0.f, 0,1,0 });
-    route1Points.push_back(Vertex{ 4.f,3.f,0.f, 0,1,0 });
-    route1Points.push_back(Vertex{ 6.f,6.f,0.f, 0,1,0 });
-    route1Points.push_back(Vertex{ 8.f,2.f,0.f, 0,1,0 });
-    route1Points.push_back(Vertex{ 9.f,5.f,0.f, 0,1,0 });
-    route1Points.push_back(Vertex{ 10.f,4.f,0.f, 0,1,0 });
+    std::vector<gsml::Vertex> route1Points;
+    route1Points.push_back(gsml::Vertex{ 1.f,2.f,0.f, 0,1,0 });
+    route1Points.push_back(gsml::Vertex{ 3.f,5.f,0.f, 0,1,0 });
+    route1Points.push_back(gsml::Vertex{ 4.f,3.f,0.f, 0,1,0 });
+    route1Points.push_back(gsml::Vertex{ 6.f,6.f,0.f, 0,1,0 });
+    route1Points.push_back(gsml::Vertex{ 8.f,2.f,0.f, 0,1,0 });
+    route1Points.push_back(gsml::Vertex{ 9.f,5.f,0.f, 0,1,0 });
+    route1Points.push_back(gsml::Vertex{ 10.f,4.f,0.f, 0,1,0 });
     mRoutes.insert(std::pair<std::string, VisualObject*>{"route1", new Route{ *this, mShaderHandler->mShaderProgram[0], route1Points, -0.072f,0.92628f,1.59003f, 1.f, 10.f }});
 
-    std::vector<Vertex> route2Points;
-    route2Points.push_back(Vertex{ 1.f,3.f,0.f, 1,0,0 });
-    route2Points.push_back(Vertex{ 3.f,5.f,0.f, 1,0,0 });
-    route2Points.push_back(Vertex{ 4.f,2.f,0.f, 1,0,0 });
-    route2Points.push_back(Vertex{ 6.f,6.f,0.f, 1,0,0 });
+    std::vector<gsml::Vertex> route2Points;
+    route2Points.push_back(gsml::Vertex{ 1.f,3.f,0.f, 1,0,0 });
+    route2Points.push_back(gsml::Vertex{ 3.f,5.f,0.f, 1,0,0 });
+    route2Points.push_back(gsml::Vertex{ 4.f,2.f,0.f, 1,0,0 });
+    route2Points.push_back(gsml::Vertex{ 6.f,6.f,0.f, 1,0,0 });
     mRoutes.insert(std::pair<std::string, VisualObject*>{"route2", new Route{ *this, mShaderHandler->mShaderProgram[0], 0.59999f,-6.13333f,17.73332f, -9.2f, 1.0f, 6.0f }});
 
 }

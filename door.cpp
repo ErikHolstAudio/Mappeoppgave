@@ -4,13 +4,13 @@
 
 Door::Door(Scene& scene, Shader* shaderProgram) : VisualObject{ scene, shaderProgram }
 {
-	mVertices.push_back(Vertex{ 0, 0, 0,  0,0,0 });
-	mVertices.push_back(Vertex{ 5, 0, 0,  1,0,0 });
-	mVertices.push_back(Vertex{ 5, 0, 5,  0,0,1 });
+    mVertices.push_back(gsml::Vertex{ 0, 0, 0,  0,0,0 });
+    mVertices.push_back(gsml::Vertex{ 5, 0, 0,  1,0,0 });
+    mVertices.push_back(gsml::Vertex{ 5, 0, 5,  0,0,1 });
 
-	mVertices.push_back(Vertex{ 0, 0, 0,  0,0,0 });
-	mVertices.push_back(Vertex{ 0, 0, 5,  1,0,0 });
-	mVertices.push_back(Vertex{ 5, 0, 5,  0,0,1 });
+    mVertices.push_back(gsml::Vertex{ 0, 0, 0,  0,0,0 });
+    mVertices.push_back(gsml::Vertex{ 0, 0, 5,  1,0,0 });
+    mVertices.push_back(gsml::Vertex{ 5, 0, 5,  0,0,1 });
 	mMatrix.setToIdentity();
 	bShape = new AABB();
 
@@ -21,17 +21,17 @@ Door::Door(Scene& scene, Shader* shaderProgram, House* house, QVector3D color) :
 	Point2D size = myHouse->getDoorSize();
 	QVector3D position = myHouse->getDoorPosition();
 
-	mVertices.push_back(Vertex{ 0,			0, 0,			color.x(),color.y(),color.z() });
-	mVertices.push_back(Vertex{ size.first,	0, 0,			color.x(),color.y(),color.z() });
-	mVertices.push_back(Vertex{ size.first,	0, size.second,	color.x(),color.y(),color.z() });
+    mVertices.push_back(gsml::Vertex{ 0,			0, 0,			color.x(),color.y(),color.z() });
+    mVertices.push_back(gsml::Vertex{ size.first,	0, 0,			color.x(),color.y(),color.z() });
+    mVertices.push_back(gsml::Vertex{ size.first,	0, size.second,	color.x(),color.y(),color.z() });
 
-	mVertices.push_back(Vertex{ 0,			0, 0,			color.x(),color.y(),color.z() });
-	mVertices.push_back(Vertex{ size.first,	0, size.second,	color.x(),color.y(),color.z() });
-	mVertices.push_back(Vertex{ 0,			0, size.second,	color.x(),color.y(),color.z() });
+    mVertices.push_back(gsml::Vertex{ 0,			0, 0,			color.x(),color.y(),color.z() });
+    mVertices.push_back(gsml::Vertex{ size.first,	0, size.second,	color.x(),color.y(),color.z() });
+    mVertices.push_back(gsml::Vertex{ 0,			0, size.second,	color.x(),color.y(),color.z() });
 
 	if (myHouse->isInside)
 	{
-		std::vector<Vertex> tempVerts;
+        std::vector<gsml::Vertex> tempVerts;
 		int count{ 0 };
 		for (int i = 0; i < mVertices.size(); i++)
 		{

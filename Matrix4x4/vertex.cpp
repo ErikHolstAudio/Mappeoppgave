@@ -39,11 +39,38 @@ Vertex::Vertex(float x, float y, float z, float r, float g, float b, float s, fl
     m_st[0] = s;
     m_st[1] = t;
 }
+
+Vertex::Vertex(Vector3d a, Vector3d b, Vector2d c)
+{
+    m_xyz[0] = a.x;
+    m_xyz[1] = a.y;
+    m_xyz[2] = a.z;
+    m_normal[0] = b.x;
+    m_normal[1] = b.y;
+    m_normal[2] = b.z;
+    m_uv[0] = c.x;
+    m_uv[1] = c.y;
+}
+
 Vertex::~Vertex()
 {
     //qDebug() << "Vertex::~Vertex()";
 }
 
+float Vertex::x()
+{
+    return m_xyz[0];
+}
+
+float Vertex::y()
+{
+    return m_xyz[1];
+}
+
+float Vertex::z()
+{
+    return m_xyz[2];
+}
 //! \param xyz pointer to coordinate array
 void Vertex::set_xyz(GLfloat* xyz)
 {
@@ -79,6 +106,13 @@ void Vertex::set_normal(GLfloat x, GLfloat y, GLfloat z)
     m_normal[0] = x; m_normal[1] = y; m_normal[2] = z;
 }
 
+void Vertex::setNormals(Vector3d normals)
+{
+    m_normal[0] = normals.x;
+    m_normal[1] = normals.y;
+    m_normal[2] = normals.z;
+}
+
 void Vertex::set_st(GLfloat* st)
 {
     for (int i=0; i<2; i++) m_st[i] = st[i];
@@ -92,6 +126,12 @@ void Vertex::set_st(GLfloat s, GLfloat t)
 void Vertex::set_uv(GLfloat u, GLfloat v)
 {
     set_st(u,v);
+}
+
+void Vertex::setUVs(Vector2d UVs)
+{
+    m_uv[0] = UVs.x;
+    m_uv[1] = UVs.y;
 }
 
 std::ostream& operator<< (std::ostream& os, const Vertex& v)

@@ -3,7 +3,6 @@
 
 #include "octahedronball.h"
 #include "trianglesurface.h"
-//#include "Math/Barycentric.h"
 
 class Line;
 class LAZSurface;
@@ -11,8 +10,7 @@ class LAZSurface;
 class RollingBall : public OctahedronBall
 {
 public:
-    RollingBall(int n);
-    RollingBall(Scene& scene, Shader* shaderProgram, float radius, QVector3D color);
+    RollingBall(Scene& scene, Shader* shaderProgram, int n);
     ~RollingBall() override;
     void init() override;
     void draw() override;

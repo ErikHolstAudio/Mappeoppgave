@@ -44,14 +44,13 @@ SOURCES += main.cpp \
     shader.cpp \
     shaderhandler.cpp \
     skybox.cpp \
+    sortcoords.cpp \
     square.cpp \
     tetrahedron.cpp \
     texture.cpp \
     token.cpp \
     triangle.cpp \
     trianglesurface.cpp \
-    vertex.cpp \
-    visualline.cpp \
     visualobject.cpp \
     visualpoint.cpp \
     xyz.cpp
@@ -96,6 +95,7 @@ HEADERS += \
     shader.h \
     shaderhandler.h \
     skybox.h \
+    sortcoords.h \
     square.h \
     tetrahedron.h \
     texture.h \
@@ -103,8 +103,6 @@ HEADERS += \
     tquadtre.h \
     triangle.h \
     trianglesurface.h \
-    vertex.h \
-    visualline.h \
     visualobject.h \
     visualpoint.h \
     xyz.h

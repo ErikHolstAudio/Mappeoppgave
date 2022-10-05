@@ -24,7 +24,7 @@ Route::Route(Scene& scene, Shader* shaderProgram, float a, float b, float c, flo
 
 }
 
-Route::Route(Scene& scene, Shader* shaderProgram, std::vector<Vertex> points, float a, float b, float c, float min, float max) : VisualPoint(scene, shaderProgram), xMin{min}, xMax{max}, ma{a}, mb{b}, mc{c}
+Route::Route(Scene& scene, Shader* shaderProgram, std::vector<gsml::Vertex> points, float a, float b, float c, float min, float max) : VisualPoint(scene, shaderProgram), xMin{min}, xMax{max}, ma{a}, mb{b}, mc{c}
 {
     renderPoints = false;
 	for (int i = 0; i < points.size(); ++i)
@@ -40,7 +40,7 @@ Route::Route(Scene& scene, Shader* shaderProgram, std::vector<Vertex> points, fl
 
 }
 
-Route::Route(Scene& scene, Shader* shaderProgram, std::vector<Vertex> points, float a, float b, float c, float d, float min, float max) : VisualPoint(scene, shaderProgram), xMin{ min }, xMax{ max }, ma{ a }, mb{ b }, mc{ c }, md{ d }
+Route::Route(Scene& scene, Shader* shaderProgram, std::vector<gsml::Vertex> points, float a, float b, float c, float d, float min, float max) : VisualPoint(scene, shaderProgram), xMin{ min }, xMax{ max }, ma{ a }, mb{ b }, mc{ c }, md{ d }
 {
     //renderPoints = true;
 
@@ -80,8 +80,8 @@ void Route::construct()
             x = xMax;
             step = 0.f;
         }
-        mVertices.push_back(Vertex{x, mathFunction(x), 0, 1, 1, 1});
-        mVertices.push_back(Vertex{x + step, mathFunction(x + step), 0, 1, 1, 1});
+        mVertices.push_back(gsml::Vertex{x, mathFunction(x), 0, 1, 1, 1});
+        mVertices.push_back(gsml::Vertex{x + step, mathFunction(x + step), 0, 1, 1, 1});
     }
 }
 
@@ -123,7 +123,7 @@ void Route::draw()
         myPoints->draw();
 }
 
-void Route::changeRoute(std::vector<Vertex> points, float a, float b, float c, float min, float max)
+void Route::changeRoute(std::vector<gsml::Vertex> points, float a, float b, float c, float min, float max)
 {
     xMin = min;
     xMax = max;

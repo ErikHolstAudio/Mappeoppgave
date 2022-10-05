@@ -157,13 +157,13 @@ void RenderWindow::init()
     //NB: hardcoded path to files! You have to change this if you change directories for the project.
     //Qt makes a build-folder besides the project folder. That is why we go down one directory
     // (out of the build-folder) and then up into the project folder.
-    mShaderProgram[0] = new Shader("../Konteeksamen_3DProg22/plainshader.vert", "../Konteeksamen_3DProg22/plainshader.frag");
+    mShaderProgram[0] = new Shader("../Mappeoppgave/plainshader.vert", "../Mappeoppgave/plainshader.frag");
     mLogger->logText("Plain shader program id: " + std::to_string(mShaderProgram[0]->getProgram()) );
 
-    mShaderProgram[1]= new Shader("../Konteeksamen_3DProg22/textureshader.vert", "../Konteeksamen_3DProg22/textureshader.frag");
+    mShaderProgram[1]= new Shader("../Mappeoppgave/textureshader.vert", "../Mappeoppgave/textureshader.frag");
     mLogger->logText("Texture shader program id: " + std::to_string(mShaderProgram[1]->getProgram()) );
 
-    mShaderProgram[2] = new Shader("../Konteeksamen_3DProg22/phongshader.vert", "../Konteeksamen_3DProg22/phongshader.frag");
+    mShaderProgram[2] = new Shader("../Mappeoppgave/phongshader.vert", "../Mappeoppgave/phongshader.frag");
     mLogger->logText("Texture shader program id: " + std::to_string(mShaderProgram[2]->getProgram()));
 
     setupPlainShader(0);
@@ -175,7 +175,7 @@ void RenderWindow::init()
     //Returns a pointer to the Texture class. This reads and sets up the texture for OpenGL
     //and returns the Texture ID that OpenGL uses from Texture::id()
 //    mTexture[0] = new Texture();
-//    mTexture[1] = new Texture("../Konteeksamen_3DProg22/Assets/hund.bmp");
+//    mTexture[1] = new Texture("../Mappeoppgave/Assets/hund.bmp");
 
     //Set the textures loaded to a texture unit (also called a texture slot)
 //    glActiveTexture(GL_TEXTURE0);
@@ -344,16 +344,16 @@ void RenderWindow::drawAABB(glm::vec3 position, glm::vec3 extent)
     static uint32_t VAO{};
     if (VAO == 0)
     {
-        std::vector<Vertex> verts;
+        std::vector<gsml::Vertex> verts;
         float size{ 1.f };
-        verts.push_back(Vertex{ -size,  size, -size, 1,1,1 });
-        verts.push_back(Vertex{  size,  size, -size, 1,1,1 });
-        verts.push_back(Vertex{  size,  size,  size, 1,1,1 });
-        verts.push_back(Vertex{ -size,  size,  size, 1,1,1 });
-        verts.push_back(Vertex{ -size, -size, -size, 1,1,1 });
-        verts.push_back(Vertex{  size, -size, -size, 1,1,1 });
-        verts.push_back(Vertex{  size, -size,  size, 1,1,1 });
-        verts.push_back(Vertex{ -size, -size,  size, 1,1,1 });
+        verts.push_back(gsml::Vertex{ -size,  size, -size, 1,1,1 });
+        verts.push_back(gsml::Vertex{  size,  size, -size, 1,1,1 });
+        verts.push_back(gsml::Vertex{  size,  size,  size, 1,1,1 });
+        verts.push_back(gsml::Vertex{ -size,  size,  size, 1,1,1 });
+        verts.push_back(gsml::Vertex{ -size, -size, -size, 1,1,1 });
+        verts.push_back(gsml::Vertex{  size, -size, -size, 1,1,1 });
+        verts.push_back(gsml::Vertex{  size, -size,  size, 1,1,1 });
+        verts.push_back(gsml::Vertex{ -size, -size,  size, 1,1,1 });
         std::vector<GLuint> indices{ 0,1,1,2,2,3,3,0,4,5,5,6,6,7,7,4,0,4,1,5,2,6,3,7 };
 
         uint32_t VBO{};
@@ -368,19 +368,19 @@ void RenderWindow::drawAABB(glm::vec3 position, glm::vec3 extent)
         glGenBuffers(1, &VBO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-        glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(Vertex), verts.data(), GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(gsml::Vertex), verts.data(), GL_STATIC_DRAW);
 
         // 1rst attribute buffer : vertices
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)0);
         glEnableVertexAttribArray(0);
 
         // 2nd attribute buffer : colors
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
         glEnableVertexAttribArray(1);
 
         // 3rd attribute buffer : uvs
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(6 * sizeof(GLfloat)));
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)(6 * sizeof(GLfloat)));
         glEnableVertexAttribArray(2);
 
         //Second buffer - holds the indices (Element Array Buffer - EAB):
@@ -467,10 +467,12 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
 
         if (event->key() == Qt::Key_C)
             cullToggle();
-//        Oppgave 5, bruker kun oppgave 6 nå
-//        if (event->key() == Qt::Key_G)
-//            debugCameraToggle();
 
+        if(event->key()==Qt::Key_N)
+            bDrawEquidistance = !bDrawEquidistance;
+
+        if(event->key()==Qt::Key_M)
+            bDrawPointCloud = !bDrawPointCloud;
         if (event->key() == Qt::Key_B)
         {
             if (!bDrawCollision)
@@ -486,27 +488,6 @@ void RenderWindow::keyPressEvent(QKeyEvent *event)
             else
                 activeScene->bDrawQuads = false;
         }
-
-        /*if (event->key() == Qt::Key_1)
-        {
-            activeScene->deactivateScene();
-            activeScene = mScenes[0];
-            activeScene->activateScene();
-        }
-
-        if (event->key() == Qt::Key_2)
-        {
-            activeScene->deactivateScene();
-            activeScene = mScenes[1];
-            activeScene->activateScene();
-        }
-
-        if (event->key() == Qt::Key_3)
-        {
-            activeScene->deactivateScene();
-            activeScene = mScenes[2];
-            activeScene->activateScene();
-        }*/
         if (event->key() == Qt::Key_4)
         {
             activeScene->deactivateScene();

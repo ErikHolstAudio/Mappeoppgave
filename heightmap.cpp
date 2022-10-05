@@ -1,12 +1,12 @@
 #include "heightmap.h"
-#include "vertex.h"
+#include "Matrix4x4/vertex.h"
 #include "texture.h"
 #include "glm/glm.hpp"
 
 
 HeightMap::HeightMap(Scene& scene, Shader* shaderProgram) : VisualObject(scene, shaderProgram)
 {
-    loadBitmap(new Texture("../Konteeksamen_3DProg22/Assets/EksamenHeightmap.bmp"));
+    loadBitmap(new Texture("../Mappeoppgave/Assets/EksamenHeightmap.bmp"));
     construct(1, 0.2f, 0.05f,-30.f);
     calcNormals();
     //bShape = new AABB();
@@ -45,7 +45,7 @@ void HeightMap::construct(unsigned int detail, float heightMultiplier, float sca
 
 			float u{ (float)x / (float)xmax };
             float v{ (float)y / (float)ymax };
-            mVertices.push_back(Vertex{ ((float)x - mWidth/2)*mScale,((float)y - mHeight/2)* mScale, ((float)z)* mScale,    0,0,1,  u,v });
+            mVertices.push_back(gsml::Vertex{ ((float)x - mWidth/2)*mScale,((float)y - mHeight/2)* mScale, ((float)z)* mScale,    0,0,1,  u,v });
 		}
 	}
     xmax /= mDetail;
@@ -88,10 +88,10 @@ float HeightMap::getHeight(glm::vec3 position)
         if (p3 > mVertices.size())
             return 1.f;
 
-        glm::vec2 a(mVertices[p1].getXYZ().x(), mVertices[p1].getXYZ().y());
-        glm::vec2 b(mVertices[p2].getXYZ().x(), mVertices[p2].getXYZ().y());
-        glm::vec2 c(mVertices[p3].getXYZ().x(), mVertices[p3].getXYZ().y());
-        glm::vec2 d(mVertices[p4].getXYZ().x(), mVertices[p4].getXYZ().y());
+        glm::vec2 a(mVertices[p1].getXYZ().x, mVertices[p1].getXYZ().y);
+        glm::vec2 b(mVertices[p2].getXYZ().x, mVertices[p2].getXYZ().y);
+        glm::vec2 c(mVertices[p3].getXYZ().x, mVertices[p3].getXYZ().y);
+        glm::vec2 d(mVertices[p4].getXYZ().x, mVertices[p4].getXYZ().y);
 
         //std::cout << "pos x: << " << mVertices[p1].getXYZ().x() << " - pos y: " << mVertices[p1].getXYZ().y() << std::endl;
 
@@ -103,9 +103,9 @@ float HeightMap::getHeight(glm::vec3 position)
 
         if (barycentricIsInside(baryCoords))
         {
-            auto p1h = mVertices[p1].getXYZ().z() * baryCoords.x;
-            auto p2h = mVertices[p2].getXYZ().z() * baryCoords.y;
-            auto p3h = mVertices[p3].getXYZ().z() * baryCoords.z;
+            auto p1h = mVertices[p1].getXYZ().z * baryCoords.x;
+            auto p2h = mVertices[p2].getXYZ().z * baryCoords.y;
+            auto p3h = mVertices[p3].getXYZ().z * baryCoords.z;
 
 
 
@@ -119,9 +119,9 @@ float HeightMap::getHeight(glm::vec3 position)
         {
             baryCoords = calcBarycentric(glm::vec2(position.x, position.y), a, c, d);
 
-            auto p1h = mVertices[p1].getXYZ().z() * baryCoords.x;
-            auto p2h = mVertices[p3].getXYZ().z() * baryCoords.y;
-            auto p3h = mVertices[p4].getXYZ().z() * baryCoords.z;
+            auto p1h = mVertices[p1].getXYZ().z * baryCoords.x;
+            auto p2h = mVertices[p3].getXYZ().z * baryCoords.y;
+            auto p3h = mVertices[p4].getXYZ().z * baryCoords.z;
 
 
 
@@ -309,19 +309,19 @@ void HeightMap::init()
     glGenBuffers(1, &mVBO);
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
-    glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(Vertex), mVertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(gsml::Vertex), mVertices.data(), GL_STATIC_DRAW);
 
     // 1rst attribute buffer : vertices
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
     // 2nd attribute buffer : colors
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
     // 3rd attribute buffer : uvs
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(6 * sizeof(GLfloat)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)(6 * sizeof(GLfloat)));
     glEnableVertexAttribArray(2);
 
     //Second buffer - holds the indices (Element Array Buffer - EAB):

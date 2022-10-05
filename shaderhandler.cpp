@@ -8,16 +8,16 @@ ShaderHandler::ShaderHandler()
 //NB: hardcoded path to files! You have to change this if you change directories for the project.
 //Qt makes a build-folder besides the project folder. That is why we go down one directory
 // (out of the build-folder) and then up into the project folder.
-    mShaderProgram[0] = new PlainShader("../Konteeksamen_3DProg22/plainshader.vert", "../Konteeksamen_3DProg22/plainshader.frag");
+    mShaderProgram[0] = new PlainShader("../Mappeoppgave/plainshader.vert", "../Mappeoppgave/plainshader.frag");
     //mLogger->logText("Plain shader program id: " + std::to_string(mShaderProgram[0]->getProgram()));
 
-    mShaderProgram[1] = new TextureShader("../Konteeksamen_3DProg22/textureshader.vert", "../Konteeksamen_3DProg22/textureshader.frag");
+    mShaderProgram[1] = new TextureShader("../Mappeoppgave/textureshader.vert", "../Mappeoppgave/textureshader.frag");
     //mLogger->logText("Texture shader program id: " + std::to_string(mShaderProgram[1]->getProgram()));
 
-    mShaderProgram[2] = new PhongShader("../Konteeksamen_3DProg22/phongshader.vert", "../Konteeksamen_3DProg22/phongshader.frag");
+    mShaderProgram[2] = new PhongShader("../Mappeoppgave/phongshader.vert", "../Mappeoppgave/phongshader.frag");
     //mLogger->logText("Texture shader program id: " + std::to_string(mShaderProgram[2]->getProgram()));
 
-    mShaderProgram[3] = new SkyBoxShader("../Konteeksamen_3DProg22/skyboxshader.vert", "../Konteeksamen_3DProg22/skyboxshader.frag");
+    mShaderProgram[3] = new SkyBoxShader("../Mappeoppgave/skyboxshader.vert", "../Mappeoppgave/skyboxshader.frag");
     //mLogger->logText("Texture shader program id: " + std::to_string(mShaderProgram[2]->getProgram()));
 
 

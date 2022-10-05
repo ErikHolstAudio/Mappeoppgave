@@ -45,6 +45,9 @@ public:
     bool bDrawCollision{ false };
 
     bool bDebugMode{ false };
+    inline static bool bDrawEquidistance{true};
+    bool bDrawPointCloud{true};
+
     void debugModeToggle();
     void setNum(int value);
 private slots:
@@ -60,7 +63,6 @@ private:
     std::vector<Scene*> mScenes;
     Scene* activeScene;
     std::vector<VisualObject*> mVisualObjects;
-
     InteractiveObject* player;
 
     Camera* mCamera;

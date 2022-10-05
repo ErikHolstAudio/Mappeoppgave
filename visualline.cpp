@@ -1,6 +1,6 @@
 #include "visualline.h"
-
-VisualLine::VisualLine(const gsml::Vector3d &direction, const gsml::Matrix4x4 &positionMatrix, gsml::Vector3d color)
+#include "Matrix4x4/vertex.h"
+VisualLine::VisualLine(const gsml::Vector3d &direction, const gsml::Matrix4x4 &positionMatrix, gsml::Vector3d color) : VisualObject(scene, shaderProgram)
 {
     mDirection = &direction;
     mObjPosition = &positionMatrix;
@@ -9,10 +9,9 @@ VisualLine::VisualLine(const gsml::Vector3d &direction, const gsml::Matrix4x4 &p
     mVertices.push_back(Vertex{1,0,0.1,color.x, color.y, color.z});
 }
 
-void VisualLine::init(GLint matrixUniform)
+void VisualLine::init()
 {
     //mMatrixUniform = glGetUniformLocation( mShaderProgram->getProgram(), "matrix" );
-    mMatrixUniform = matrixUniform;
 
     initializeOpenGLFunctions();
 
@@ -43,7 +42,7 @@ void VisualLine::draw()
 {
     // Ikke optimalisert, burde heller rotere
     mVertices.at(1).set_xyz(mDirection->x, mDirection->y, mDirection->z);
-    init(mMatrixUniform);
+    init();
     mPosition = *mObjPosition;
     mMatrix = mPosition * mScale;
     glBindVertexArray( mVAO );

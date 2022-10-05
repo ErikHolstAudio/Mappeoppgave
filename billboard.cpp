@@ -33,10 +33,10 @@ void Billboard::createObject()
 	float ymax{ billboardSize.y - squareVertices.y };
     float z{ 5.f };
 
-	mVertices.push_back(Vertex(xmin, ymin, z, 1.f, 1.f, 1.f, 0.f, 0.f));
-	mVertices.push_back(Vertex(xmax, ymin, z, 1.f, 1.f, 1.f, 1.f, 0.f));
-    mVertices.push_back(Vertex(xmax, ymax, z, 1.f, 1.f, 1.f, 1.f, 1.f));
-	mVertices.push_back(Vertex(xmin, ymax, z, 1.f, 1.f, 1.f, 0.f, 1.f));
+    mVertices.push_back(gsml::Vertex(xmin, ymin, z, 1.f, 1.f, 1.f, 0.f, 0.f));
+    mVertices.push_back(gsml::Vertex(xmax, ymin, z, 1.f, 1.f, 1.f, 1.f, 0.f));
+    mVertices.push_back(gsml::Vertex(xmax, ymax, z, 1.f, 1.f, 1.f, 1.f, 1.f));
+    mVertices.push_back(gsml::Vertex(xmin, ymax, z, 1.f, 1.f, 1.f, 0.f, 1.f));
 
 	mIndices.push_back(0);
 	mIndices.push_back(1);
@@ -108,19 +108,19 @@ void Billboard::init()
     glGenBuffers(1, &mVBO);
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
-    glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(Vertex), mVertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(gsml::Vertex), mVertices.data(), GL_STATIC_DRAW);
 
     // 1rst attribute buffer : vertices
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
     // 2nd attribute buffer : colors
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
     // 3rd attribute buffer : uvs
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(6 * sizeof(GLfloat)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)(6 * sizeof(GLfloat)));
     glEnableVertexAttribArray(2);
 
     //Second buffer - holds the indices (Element Array Buffer - EAB):
@@ -145,7 +145,7 @@ void Billboard::draw()
 
     //Texture* mTexture;
     ////and returns the Texture ID that OpenGL uses from Texture::id()
-    //mTexture = new Texture("../Konteeksamen_3DProg22/Assets/heightmap.bmp");
+    //mTexture = new Texture("../Mappeoppgave/Assets/heightmap.bmp");
 
     ////Set the textures loaded to a texture unit (also called a texture slot)
 

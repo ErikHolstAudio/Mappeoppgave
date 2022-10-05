@@ -80,11 +80,11 @@ void OctahedronBall::move(float x, float y, float z)
 void OctahedronBall::lagTriangel(const QVector3D& v1, const QVector3D& v2, const QVector3D& v3)
 {
     QVector3D color{1.f,1.f,0.f};
-    Vertex v{ v1.x(), v1.y(), v1.z(), color.x(), color.y(), color.z() };
+    gsml::Vertex v{ v1.x(), v1.y(), v1.z(), color.x(), color.y(), color.z() };
 	mVertices.push_back(v);
-    v = Vertex{ v2.x(), v2.y(), v2.z(), color.x(), color.y(), color.z() };
+    v = gsml::Vertex{ v2.x(), v2.y(), v2.z(), color.x(), color.y(), color.z() };
 	mVertices.push_back(v);
-    v = Vertex{ v3.x(), v3.y(), v3.z(), color.x(), color.y(), color.z() };
+    v = gsml::Vertex{ v3.x(), v3.y(), v3.z(), color.x(), color.y(), color.z() };
 	mVertices.push_back(v);
 }
 

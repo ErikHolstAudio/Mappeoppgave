@@ -19,8 +19,8 @@
 examscene::examscene(std::vector<Scene*> scenes, ShaderHandler *handler, RenderWindow &renderWindow, float size) :
     Scene(scenes,handler,renderWindow,size)
 {
-    mCamera = new Camera(this, new OBJ(*this, mShaderHandler->mShaderProgram[2],"../Konteeksamen_3DProg22/Assets/Camera.obj",
-                                       "../Konteeksamen_3DProg22/Assets/Camera.bmp"));
+    mCamera = new Camera(this, new OBJ(*this, mShaderHandler->mShaderProgram[2],"../Mappeoppgave/Assets/Camera.obj",
+                                       "../Mappeoppgave/Assets/Camera.bmp"));
     quadDrawHeight = 1.7f;
     createObjects();
     initQuadTre();
@@ -78,9 +78,9 @@ void examscene::createObjects()
     VisualObject* temp;
 
     // Oppgave 2 - Heightmap
-    mObjects.push_back(temp = new HeightMap(*this, mShaderHandler->mShaderProgram[2], new Texture("../Konteeksamen_3DProg22/Assets/EksamenHeightmap.bmp"),1,0.6f,0.5f,-30.f));
+    mObjects.push_back(temp = new HeightMap(*this, mShaderHandler->mShaderProgram[2], new Texture("../Mappeoppgave/Assets/EksamenHeightmap.bmp"),1,0.6f,0.5f,-30.f));
     temp->setName("heightmap");
-    temp->loadTexture(new Texture("../Konteeksamen_3DProg22/Assets/grass2.bmp"));
+    temp->loadTexture(new Texture("../Mappeoppgave/Assets/grass2.bmp"));
     mapSize = dynamic_cast<HeightMap*>(temp)->getSize() / 2;
 
     // Oppgave 3 - Lys
@@ -90,8 +90,8 @@ void examscene::createObjects()
 
     // Oppgave 4 - Spiller
     mObjects.push_back(temp = new InteractiveObject(*this, mShaderHandler->mShaderProgram[0], new OBJ(*this, mShaderHandler->mShaderProgram[2],
-                                                                                                      "../Konteeksamen_3DProg22/Assets/characters/player.obj",
-                                                                                                      "../Konteeksamen_3DProg22/Assets/characters/player.bmp")));
+                                                                                                      "../Mappeoppgave/Assets/characters/player.obj",
+                                                                                                      "../Mappeoppgave/Assets/characters/player.bmp")));
     temp->setName("player");
     //temp->calculateNormals();
     dynamic_cast<AABB*>(temp->bShape)->extent = glm::vec3{ 1.f, 1.f, 2.1f };
@@ -107,8 +107,8 @@ void examscene::createObjects()
 
     // Oppgave 10
     mObjects.push_back(temp = new Enemy(*this, mShaderHandler->mShaderProgram[2], new OBJ(*this, mShaderHandler->mShaderProgram[2],
-                                                                                          "../Konteeksamen_3DProg22/Assets/characters/enemy.obj",
-                                                                                          "../Konteeksamen_3DProg22/Assets/characters/enemy.bmp")));
+                                                                                          "../Mappeoppgave/Assets/characters/enemy.obj",
+                                                                                          "../Mappeoppgave/Assets/characters/enemy.bmp")));
     temp->setName("enemy");
 
     for (auto it = mObjects.begin(); it != mObjects.end(); it++)
@@ -124,60 +124,60 @@ void examscene::createObjects()
 //Oppgave 9
 void examscene::tokenSpawner()
 {
-    srand(time(NULL));
-    Cube* cubeTemp{ nullptr };
-    Token* tempToken;
-    QVector3D colorTemp;
-
-    std::chrono::duration<int, std::ratio<2> > twoSeconds(1);
-    cooldown = twoSeconds;
-
-    colorTemp = QVector3D(1,1,1);
-    int max = (int)mapSize;
-    int min = -(int)mapSize;
-
-    // Setting the height of the tokens
-    glm::vec3 tempPos{ 0.f,0.f,0.f };
-    float tempHeight{ 0.f };
-    float tempOffset{ 2.f };
-    for (int i = 0; i < 10; ++i)
-    {
-
-            cubeTemp = new Cube(*this, mShaderHandler->mShaderProgram[0], 0.5f, colorTemp);
-            tempToken = new PlayerToken(*this, mShaderHandler->mShaderProgram[0], cubeTemp);
-
-            tempToken->setName("playerTrophies" + std::to_string(i));
-
-            tempPos = glm::vec3{
-                                rand() % max + min,
-                                rand() % max + min,
-                                0.f };
-
-            tempHeight = dynamic_cast<HeightMap*>(mMap["heightmap"])->getHeight(tempPos) + tempOffset;
-
-            cubeTemp->move(tempPos.x, tempPos.y, tempHeight);
-
-            mPlayerTokens.push_back(tempToken);
-    }
-    for (int i = 0; i < 10; ++i)
-    {
-
-        cubeTemp = new Cube(*this, mShaderHandler->mShaderProgram[0], 0.5f, colorTemp);
-        tempToken = new EnemyToken(*this, mShaderHandler->mShaderProgram[0], cubeTemp);
-
-        tempToken->setName("enemyTrophies" + std::to_string(i));
-
-        tempPos = glm::vec3{
-                            rand() % max + min,
-                            rand() % max + min,
-                            0.f };
-
-        tempHeight = dynamic_cast<HeightMap*>(mMap["heightmap"])->getHeight(tempPos) + tempOffset;
-
-        cubeTemp->move(tempPos.x, tempPos.y, tempHeight);
-
-        mEnemyTokens.push_back(tempToken);
-    }
+//    srand(time(NULL));
+//    Cube* cubeTemp{ nullptr };
+//    Token* tempToken;
+//    QVector3D colorTemp;
+//
+//    std::chrono::duration<int, std::ratio<2> > twoSeconds(1);
+//    cooldown = twoSeconds;
+//
+//    colorTemp = QVector3D(1,1,1);
+//    int max = (int)mapSize;
+//    int min = -(int)mapSize;
+//
+//    // Setting the height of the tokens
+//    gsml::Vec3 tempPos{ 0.f,0.f,0.f };
+//    float tempHeight{ 0.f };
+//    float tempOffset{ 2.f };
+//    for (int i = 0; i < 10; ++i)
+//    {
+//
+//            cubeTemp = new Cube(*this, mShaderHandler->mShaderProgram[0], 0.5f, colorTemp);
+//            tempToken = new PlayerToken(*this, mShaderHandler->mShaderProgram[0], cubeTemp);
+//
+//            tempToken->setName("playerTrophies" + std::to_string(i));
+//
+//            tempPos = gsml::Vec3{
+//                                rand() % max + min,
+//                                rand() % max + min,
+//                                0.f };
+//
+//            tempHeight = dynamic_cast<HeightMap*>(mMap["heightmap"])->getHeight(tempPos) + tempOffset;
+//
+//            cubeTemp->move(tempPos.x, tempPos.y, tempHeight);
+//
+//            mPlayerTokens.push_back(tempToken);
+//    }
+//    for (int i = 0; i < 10; ++i)
+//    {
+//
+//        cubeTemp = new Cube(*this, mShaderHandler->mShaderProgram[0], 0.5f, colorTemp);
+//        tempToken = new EnemyToken(*this, mShaderHandler->mShaderProgram[0], cubeTemp);
+//
+//        tempToken->setName("enemyTrophies" + std::to_string(i));
+//
+//        tempPos = gsml::Vec3{
+//                            rand() % max + min,
+//                            rand() % max + min,
+//                            0.f };
+//
+//        tempHeight = dynamic_cast<HeightMap*>(mMap["heightmap"])->getHeight(tempPos) + tempOffset;
+//
+//        cubeTemp->move(tempPos.x, tempPos.y, tempHeight);
+//
+//        mEnemyTokens.push_back(tempToken);
+//    }
 }
 // Oppgave 8
 void examscene::projectileSpawner()
@@ -242,10 +242,10 @@ void examscene::billboardSpawn()
     Billboard* temp{ nullptr };
 
     if (bWinGame)
-        temp = new Billboard(*this, mShaderHandler->mShaderProgram[1], mCamera, "../Konteeksamen_3DProg22/Assets/win.bmp");
+        temp = new Billboard(*this, mShaderHandler->mShaderProgram[1], mCamera, "../Mappeoppgave/Assets/win.bmp");
 
     else if (bLoseGame)
-        temp = new Billboard(*this, mShaderHandler->mShaderProgram[1], mCamera, "../Konteeksamen_3DProg22/Assets/lost.bmp");
+        temp = new Billboard(*this, mShaderHandler->mShaderProgram[1], mCamera, "../Mappeoppgave/Assets/lost.bmp");
 
     temp->setName("billboard");
     temp->move(billboardPos.x(),billboardPos.y(),billboardPos.z());

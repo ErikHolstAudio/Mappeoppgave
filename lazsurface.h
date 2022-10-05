@@ -14,10 +14,11 @@ struct SquareWHeights{
     float height;
     int iteration;
 };
+
 class LAZSurface : public VisualObject
 {
 public:
-    LAZSurface(const std::string txtFileName, const QVector2D mGridSize, const QVector3D offset = QVector3D(0,0,0), const float scale = 1);
+    LAZSurface(const std::string txtFileName, const QVector2D mGridSize, Scene& scene, Shader* shaderProgram, const QVector3D offset = QVector3D(0,0,0), const float scale = 1);
     void construct(const std::string txtFileName);
     void readFile(const std::string txtFileName);
     void init() override;
@@ -32,17 +33,19 @@ public:
 
     bool drawEquidistanceLines{false};
 
+    bool mDrawSurface{true};
+    bool mDrawPoints{false};
+
 protected:
     const float mScale{1};
     const int mGridSizeX;
     const int mGridSizeY;
     const QVector3D mOffset;
-    float xMax{0}, xMin{0}, yMax{0}, yMin{0};
-    float zMax{0}, zMin{0};
     Equidistance* mEquiLines{nullptr};
     int mEquidistance{10};
 
-
+    float xMax{0}, xMin{0}, yMax{0}, yMin{0};
+    float zMax{0}, zMin{0};
 
     std::vector<int> mIndices;
     std::vector<std::vector<SquareWHeights>> mHeightInArea;

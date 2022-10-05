@@ -15,8 +15,8 @@
 PhysicsScene::PhysicsScene(std::vector<Scene *> scenes, ShaderHandler *handler, RenderWindow &renderWindow, float size) :
     Scene(scenes,handler,renderWindow,size)
 {
-    mCamera = new Camera(this, new OBJ(*this, mShaderHandler->mShaderProgram[2],"../Konteeksamen_3DProg22/Assets/Camera.obj",
-                                       "../Konteeksamen_3DProg22/Assets/Camera.bmp"));
+    mCamera = new Camera(this, new OBJ(*this, mShaderHandler->mShaderProgram[2],"../Mappeoppgave/Assets/Camera.obj",
+                                       "../Mappeoppgave/Assets/Camera.bmp"));
     quadDrawHeight = 1.7f;
     createObjects();
     initQuadTre();
@@ -54,8 +54,8 @@ void PhysicsScene::createObjects()
     VisualObject* temp;
     //Spiller
     mObjects.push_back(temp = new InteractiveObject(*this, mShaderHandler->mShaderProgram[0], new OBJ(*this, mShaderHandler->mShaderProgram[2],
-                                                                                                      "../Konteeksamen_3DProg22/Assets/characters/player.obj",
-                                                                                                      "../Konteeksamen_3DProg22/Assets/characters/player.bmp")));
+                                                                                                      "../Mappeoppgave/Assets/characters/player.obj",
+                                                                                                      "../Mappeoppgave/Assets/characters/player.bmp")));
     temp->setName("player");
     // Phonglys
     mObjects.push_back(temp = new Light(*this, mShaderHandler->mShaderProgram[0], new OctahedronBall(*this, mShaderHandler->mShaderProgram[0],3)));

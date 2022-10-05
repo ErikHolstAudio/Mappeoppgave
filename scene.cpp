@@ -55,7 +55,7 @@ void Scene::createObjects()
     //temp->setName("disc");
 
 
-    mObjects.push_back(temp = new TriangleSurface(*this, plainShader, "surface.txt")); // To change location to the root folder: ("../Konteeksamen_3DProg22/surface.txt")
+    mObjects.push_back(temp = new TriangleSurface(*this, plainShader, "surface.txt")); // To change location to the root folder: ("../Mappeoppgave/surface.txt")
     temp->setName("surface");
     int surfacePosition{ (int)mObjects.size() - 1 };
 

@@ -26,21 +26,21 @@ void InteractiveObject::createObject()
     float unit{ 2.f };
     float xmin{ unit * -1 }, xmax{ xmin * -1 }, xmid{ 0 }, ymin{ xmin }, ymid{ xmid }, ymax{ xmax }, zmin{ 0 }, zmax{ unit }, zmid{ unit / 2 };
 
-    mVertices.push_back(Vertex{ xmin, ymax, zmin, 0,1,0 }); // Bottom Left
-    mVertices.push_back(Vertex{ xmax, ymax, zmin, 1,0,0 }); // Bottom right
-    mVertices.push_back(Vertex{ xmid, ymin, zmin, 0,0,0 }); // Bottom mid
+    mVertices.push_back(gsml::Vertex{ xmin, ymax, zmin, 0,1,0 }); // Bottom Left
+    mVertices.push_back(gsml::Vertex{ xmax, ymax, zmin, 1,0,0 }); // Bottom right
+    mVertices.push_back(gsml::Vertex{ xmid, ymin, zmin, 0,0,0 }); // Bottom mid
 
-    mVertices.push_back(Vertex{ xmid, ymin, zmin, 0,1,0 }); // Bottom mid
-    mVertices.push_back(Vertex{ xmax, ymax, zmin, 1,0,1 }); // Bottom right
-    mVertices.push_back(Vertex{ xmid, ymid, zmax , 0,0,1 }); // Top
+    mVertices.push_back(gsml::Vertex{ xmid, ymin, zmin, 0,1,0 }); // Bottom mid
+    mVertices.push_back(gsml::Vertex{ xmax, ymax, zmin, 1,0,1 }); // Bottom right
+    mVertices.push_back(gsml::Vertex{ xmid, ymid, zmax , 0,0,1 }); // Top
 
-    mVertices.push_back(Vertex{ xmin, ymax, zmin, 1,0,1 }); // Bottom left
-    mVertices.push_back(Vertex{ xmid, ymin, zmin, 0,1,0 }); // Bottom mid
-    mVertices.push_back(Vertex{ xmid, ymid, zmax , 0,0,1 }); // Top
+    mVertices.push_back(gsml::Vertex{ xmin, ymax, zmin, 1,0,1 }); // Bottom left
+    mVertices.push_back(gsml::Vertex{ xmid, ymin, zmin, 0,1,0 }); // Bottom mid
+    mVertices.push_back(gsml::Vertex{ xmid, ymid, zmax , 0,0,1 }); // Top
 
-    mVertices.push_back(Vertex{ xmin, ymax, zmin, 0,1,0 }); // Bottom Left
-    mVertices.push_back(Vertex{ xmid, ymid, zmax , 0,0,1 }); // Top
-    mVertices.push_back(Vertex{ xmax, ymax, zmin, 1,0,1 }); // Bottom right
+    mVertices.push_back(gsml::Vertex{ xmin, ymax, zmin, 0,1,0 }); // Bottom Left
+    mVertices.push_back(gsml::Vertex{ xmid, ymid, zmax , 0,0,1 }); // Top
+    mVertices.push_back(gsml::Vertex{ xmax, ymax, zmin, 1,0,1 }); // Bottom right
 
     mMatrix.setToIdentity();
 
@@ -97,7 +97,7 @@ void InteractiveObject::move(float dx, float dy, float dz)
     {
         if (mHeightmap)
         {
-            mz = mHeightmap->getHeight(glm::vec3(mx, my, mz));
+            mz = mHeightmap->getHeight(gsml::Vec3(mx, my, mz));
 
             mModel->move(mx, my, mz);
 
@@ -123,7 +123,7 @@ void InteractiveObject::move(float dx, float dy, float dz)
     {
         if (mHeightmap)
         {
-            mz = mHeightmap->getHeight(glm::vec3(mx, my, mz));
+            mz = mHeightmap->getHeight(gsml::Vec3(mx, my, mz));
 
             QVector4D pos{ mx,my,mz,1.0f };
             mPosition.setColumn(3, pos);

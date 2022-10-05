@@ -1,12 +1,11 @@
 #include "lazsurface.h"
 #include <iomanip> //for std::setprecision
 #include "equidistance.h"
+#include "renderwindow.h"
 
-LAZSurface::LAZSurface(const std::string txtFileName, const QVector2D gridSize, const QVector3D offset, const float scale) : mScale(scale), mOffset(offset), mGridSizeX(gridSize.x()), mGridSizeY(gridSize.y())
+LAZSurface::LAZSurface(const std::string txtFileName, const QVector2D gridSize, Scene& scene, Shader* shaderProgram, const QVector3D offset, const float scale) :
+    mScale(scale), mOffset(offset), mGridSizeX(gridSize.x()), mGridSizeY(gridSize.y()), VisualObject(scene, shaderProgram)
 {
-    //Important! shader program name must be given
-    mMaterialName = "materialplain";
-
     construct(txtFileName);
 
     mMatrix.setToIdentity();
@@ -136,7 +135,7 @@ void LAZSurface::readFile(std::string txtFileName)
                 float zDistance = (zMax - zMin) ;
 
                 //Vertex
-                mVertices.push_back(Vertex{x,y,z1, 0,z1/zDistance,0});
+                mVertices.push_back(gsml::Vertex{x,y,z1, 0,z1/zDistance,0});
 
 
             }
@@ -183,15 +182,15 @@ void LAZSurface::init()
     glGenBuffers( 1, &mVBO );
     glBindBuffer( GL_ARRAY_BUFFER, mVBO );
 
-    glBufferData( GL_ARRAY_BUFFER, mVertices.size()*sizeof( Vertex ), mVertices.data(), GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, mVertices.size()*sizeof( gsml::Vertex ), mVertices.data(), GL_STATIC_DRAW );
 
     // 1st attribute buffer : vertices
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT,GL_FALSE, sizeof(Vertex), reinterpret_cast<GLvoid*>(0));
+    glVertexAttribPointer(0, 3, GL_FLOAT,GL_FALSE, sizeof(gsml::Vertex), reinterpret_cast<GLvoid*>(0));
     glEnableVertexAttribArray(0);
 
     // 2nd attribute buffer : colors
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  sizeof( Vertex ),  reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)) );
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  sizeof( gsml::Vertex ),  reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)) );
     glEnableVertexAttribArray(1);
 
 
@@ -209,10 +208,10 @@ void LAZSurface::init()
 
 void LAZSurface::draw()
 {
-    mMaterial->UpdateUniforms(&mMatrix);
+    drawEquidistanceLines = RenderWindow::bDrawEquidistance; //mMaterial->UpdateUniforms(&mMatrix);
 
-    //if(mEquiLines && drawEquidistanceLines)
-    //    mEquiLines->draw();
+    if(mEquiLines && drawEquidistanceLines)
+        mEquiLines->draw();
 
     //glBindVertexArray( mVAO );
     //glDrawArrays(GL_TRIANGLES , 0, mVertices.size());
@@ -232,6 +231,10 @@ void LAZSurface::addToAverageHeight(int xIndex, int yIndex, float height)
 
 float LAZSurface::getAverageHeight(int x, int y)
 {
+    // If no points exists within the area, return 0 as height for the area
+    if(mHeightInArea.at(x).at(y).iteration == 0) return 0;
+
+    // If one or more points exists within the area, return average height in area
     return (mHeightInArea.at(x).at(y).height / mHeightInArea.at(x).at(y).iteration);
 }
 
@@ -243,37 +246,37 @@ Equidistance* LAZSurface::constructEquidistance()
         return mEquiLines;
     }
 
-    mEquiLines = new Equidistance();
+    mEquiLines = new Equidistance(mScene, mShaderProgram);
     drawEquidistanceLines = true;
     // Do a check for each triangle (double for loop)
     for(int i = 0; i < mIndices.size(); i+=3){
-        Vertex* abc[3]{nullptr};
+        gsml::Vertex* abc[3]{nullptr};
         abc[0] = &mVertices.at(mIndices.at(i));
         abc[1] = &mVertices.at(mIndices.at(i+1));
         abc[2] = &mVertices.at(mIndices.at(i+2));
 
-        Vertex* temp{nullptr};
+        gsml::Vertex* temp{nullptr};
 
         // Sort the three vertices by height (Low to high)
-        if(abc[0]->getXYZ().z() > abc[1]->getXYZ().z()){
+        if(abc[0]->getXYZ().z > abc[1]->getXYZ().z){
             temp = abc[0];
             abc[0] = abc[1];
             abc[1] = temp;
         }
-        if(abc[1]->getXYZ().z() > abc[2]->getXYZ().z()){
+        if(abc[1]->getXYZ().z > abc[2]->getXYZ().z){
             temp = abc[1];
             abc[1] = abc[2];
             abc[2] = temp;
         }
-        if(abc[0]->getXYZ().z() > abc[1]->getXYZ().z()){
+        if(abc[0]->getXYZ().z > abc[1]->getXYZ().z){
             temp = abc[0];
             abc[0] = abc[1];
             abc[1] = temp;
         }
 
-        float minHeight = abc[0]->getXYZ().z();
-        float midHeight = abc[1]->getXYZ().z();
-        float maxHeight = abc[2]->getXYZ().z();
+        float minHeight = abc[0]->getXYZ().z;
+        float midHeight = abc[1]->getXYZ().z;
+        float maxHeight = abc[2]->getXYZ().z;
 
         //Check if triangle lays flat on the equidistance, if so don't add lines and return
         if(fmod(minHeight, mEquidistance) == 0 && maxHeight == minHeight ) return mEquiLines; // Could potentially alter the color the entire square before returning
@@ -374,7 +377,7 @@ std::vector<QVector3D> LAZSurface::getTriangleVertices(QVector3D pos)
                     int v0 = x + y*mGridSizeX;
                     int v1 = x+1 + y*mGridSizeX;
                     int v2 = x+1 + (y+1)*mGridSizeX;
-                    int v3 = x + (y+1)*mGridSizeX;
+                    //int v3 = x + (y+1)*mGridSizeX; // Unused when commented out
 
                     QVector3D barycResult;
                     barycResult = calcBarycentric(pos.toVector2D(), mVertices[v0].getXYZ().toVector2D(), mVertices[v1].getXYZ().toVector2D(), mVertices[v2].getXYZ().toVector2D());

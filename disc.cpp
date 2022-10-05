@@ -30,15 +30,15 @@ void Disc::init()
     //Vertex Buffer Object to hold vertices - VBO
     glGenBuffers( 1, &mVBO );
     glBindBuffer( GL_ARRAY_BUFFER, mVBO );
-    glBufferData( GL_ARRAY_BUFFER, mVertices.size()*sizeof(Vertex), mVertices.data(), GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, mVertices.size()*sizeof(gsml::Vertex), mVertices.data(), GL_STATIC_DRAW );
 
     // 1rst attribute buffer : vertices
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT,GL_FALSE,sizeof(Vertex), reinterpret_cast<const void*>(0));
+    glVertexAttribPointer(0, 3, GL_FLOAT,GL_FALSE,sizeof(gsml::Vertex), reinterpret_cast<const void*>(0));
     glEnableVertexAttribArray(0);
 
     // 2nd attribute buffer : colors
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  sizeof(Vertex),  reinterpret_cast<const void*>(3 * sizeof(GLfloat)) );
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  sizeof(gsml::Vertex),  reinterpret_cast<const void*>(3 * sizeof(GLfloat)) );
     glEnableVertexAttribArray(1);
 
     //enable the matrixUniform
@@ -75,7 +75,7 @@ void Disc::draw()
 // Hardkodet sektorstørrelse og antall
 void Disc::construct()
 {
-    mVertices.push_back(Vertex{0,0,0,1,1,1});
+    mVertices.push_back(gsml::Vertex{0,0,0,1,1,1});
     for (int i=0; i<13; i++)
     {
         double angle = 30 * i * M_PI / 180;
@@ -86,7 +86,7 @@ void Disc::construct()
         float r = i%2;
         float g = 0.f;
         float b = 0.5f;
-        mVertices.push_back(Vertex{x,y,z,r,g,b});
+        mVertices.push_back(gsml::Vertex{x,y,z,r,g,b});
     }
     for (GLuint i=0; i<14; i++) mIndices.push_back(i);
 }

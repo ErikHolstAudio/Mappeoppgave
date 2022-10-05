@@ -106,10 +106,9 @@ void MainWindow::on_SpawnBalls_clicked()
 {
 }
 
-
 void MainWindow::on_BallSliderInt_valueChanged(int value)
 {
     mBallsToSpawn = value;
-    ui->BallInt->setNum(mBallsToSpawn);
+    //ui->BallInt->setNum(mBallsToSpawn);
 }
 

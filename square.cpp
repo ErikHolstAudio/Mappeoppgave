@@ -18,10 +18,10 @@ Square::~Square()
 
 void Square::construct()
 {
-	mVertices.push_back(Vertex(m_a.x(), m_a.y(), mHeight, color[0], color[1], color[2]));
-	mVertices.push_back(Vertex(m_b.x(), m_b.y(), mHeight, color[0], color[1], color[2]));
-	mVertices.push_back(Vertex(m_c.x(), m_c.y(), mHeight, color[0], color[1], color[2]));
-	mVertices.push_back(Vertex(m_d.x(), m_d.y(), mHeight, color[0], color[1], color[2]));
+    mVertices.push_back(gsml::Vertex(m_a.x(), m_a.y(), mHeight, color[0], color[1], color[2]));
+    mVertices.push_back(gsml::Vertex(m_b.x(), m_b.y(), mHeight, color[0], color[1], color[2]));
+    mVertices.push_back(gsml::Vertex(m_c.x(), m_c.y(), mHeight, color[0], color[1], color[2]));
+    mVertices.push_back(gsml::Vertex(m_d.x(), m_d.y(), mHeight, color[0], color[1], color[2]));
 }
 
 void Square::draw()

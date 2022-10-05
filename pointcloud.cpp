@@ -1,8 +1,8 @@
 #include "pointcloud.h"
-#include "Math/SortCoords.h"
+#include "sortcoords.h"
 #include <iomanip>
 
-PointCloud::PointCloud(Shader& shader) : VisualObject{shader}
+PointCloud::PointCloud(Scene& scene, Shader* shaderProgram) : VisualObject(scene, shaderProgram)
 {
     mName = "PointCloud";
 }
@@ -15,7 +15,7 @@ void PointCloud::init()
 {
     initializeOpenGLFunctions();
 
-    mMatrix = glm::mat4(1.0f);
+    mMatrix.setToIdentity();
 
     //Initialize Geometry
     std::ifstream file;
@@ -36,7 +36,7 @@ void PointCloud::init()
     file >> size;
     std::cout << "\nSIZE: " << size << std::endl;
 
-    Vertex vertex;
+    gsml::Vertex vertex;
 
     for (int i = 0; i < size; i++)
     {
@@ -74,10 +74,10 @@ void PointCloud::init()
     glGenBuffers(1, &mVBO);
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
-    glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(Vertex), mVertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(gsml::Vertex), mVertices.data(), GL_STATIC_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
     // 2nd attribute buffer : colors
@@ -87,7 +87,7 @@ void PointCloud::init()
         3,
         GL_FLOAT,
         GL_FALSE,
-        sizeof(Vertex),
+        sizeof(gsml::Vertex),
         reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
@@ -100,7 +100,7 @@ void PointCloud::draw()
     //glPointSize(30);
 
     glBindVertexArray(mVAO);
-    glUniformMatrix4fv(mMatrixUniform, 1, GL_FALSE, mMatrix.constData());
+    glUniformMatrix4fv(mShaderProgram->mMatrixUniform, 1, GL_FALSE, mMatrix.constData());
     glDrawArrays(GL_POINTS, 0, mVertices.size());
     glBindVertexArray(0);
 }

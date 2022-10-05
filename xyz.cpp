@@ -2,12 +2,12 @@
 
 XYZ::XYZ(Scene& scene, Shader* shaderProgram) : VisualObject(scene, shaderProgram)
 {
-   mVertices.push_back(Vertex{-1, 0, 0,1,0,0});
-   mVertices.push_back(Vertex{ 1, 0, 0,1,0,0});
-   mVertices.push_back(Vertex{ 0,-1, 0,0,1,0});
-   mVertices.push_back(Vertex{ 0, 1, 0,0,1,0});
-   mVertices.push_back(Vertex{ 0, 0,-1,0,0,1});
-   mVertices.push_back(Vertex{ 0, 0, 1,0,0,1});
+   mVertices.push_back(gsml::Vertex{-1, 0, 0,1,0,0});
+   mVertices.push_back(gsml::Vertex{ 1, 0, 0,1,0,0});
+   mVertices.push_back(gsml::Vertex{ 0,-1, 0,0,1,0});
+   mVertices.push_back(gsml::Vertex{ 0, 1, 0,0,1,0});
+   mVertices.push_back(gsml::Vertex{ 0, 0,-1,0,0,1});
+   mVertices.push_back(gsml::Vertex{ 0, 0, 1,0,0,1});
    mMatrix.setToIdentity();
    mMatrix.scale(100.f);
    bShape = new AABB();
@@ -29,7 +29,7 @@ void XYZ::init()
 	glBindBuffer( GL_ARRAY_BUFFER, mVBO );
 
 	glBufferData( GL_ARRAY_BUFFER,                   //what buffer type
-	              mVertices.size()*sizeof( Vertex ), //how big buffer do we need
+                  mVertices.size()*sizeof( gsml::Vertex ), //how big buffer do we need
 	              mVertices.data(),                  //the actual vertices
 	              GL_STATIC_DRAW                     //should the buffer be updated on the GPU
 	              );
@@ -40,7 +40,7 @@ void XYZ::init()
 	                      3,                 // size / number of elements of data type
 	                      GL_FLOAT,          // data type
 	                      GL_FALSE,          // normalize data
-	                      sizeof(Vertex),    // stride
+                          sizeof(gsml::Vertex),    // stride
 	                      reinterpret_cast<GLvoid*>(0) // array buffer offset
 	                      );
 	glEnableVertexAttribArray(0);
@@ -50,7 +50,7 @@ void XYZ::init()
 	                     3,
 	                     GL_FLOAT,
 	                     GL_FALSE,
-	                     sizeof( Vertex ),
+                         sizeof( gsml::Vertex ),
 	                     reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat))
 	                     );
 	glEnableVertexAttribArray(1);

@@ -8,15 +8,15 @@
 SkyBox::SkyBox(Scene& scene, Shader* shaderProgram) : VisualObject(scene, shaderProgram)
 {
 	float extent{ 10.f }, min{ -extent }, max{ extent };
-	mVertices.push_back(Vertex(min, min, min, 0.f, 0.f, 0.f)); // 0
-	mVertices.push_back(Vertex(max, min, min, 0.f, 0.f, 0.f)); // 1
-	mVertices.push_back(Vertex(max, max, min, 0.f, 0.f, 0.f)); // 2
-	mVertices.push_back(Vertex(min, max, min, 0.f, 0.f, 0.f)); // 3
+    mVertices.push_back(gsml::Vertex(min, min, min, 0.f, 0.f, 0.f)); // 0
+    mVertices.push_back(gsml::Vertex(max, min, min, 0.f, 0.f, 0.f)); // 1
+    mVertices.push_back(gsml::Vertex(max, max, min, 0.f, 0.f, 0.f)); // 2
+    mVertices.push_back(gsml::Vertex(min, max, min, 0.f, 0.f, 0.f)); // 3
 
-	mVertices.push_back(Vertex(min, min, max, 0.f, 0.f, 0.f)); // 4
-	mVertices.push_back(Vertex(max, min, max, 0.f, 0.f, 0.f)); // 5
-	mVertices.push_back(Vertex(max, max, max, 0.f, 0.f, 0.f)); // 6
-	mVertices.push_back(Vertex(min, max, max, 0.f, 0.f, 0.f)); // 7
+    mVertices.push_back(gsml::Vertex(min, min, max, 0.f, 0.f, 0.f)); // 4
+    mVertices.push_back(gsml::Vertex(max, min, max, 0.f, 0.f, 0.f)); // 5
+    mVertices.push_back(gsml::Vertex(max, max, max, 0.f, 0.f, 0.f)); // 6
+    mVertices.push_back(gsml::Vertex(min, max, max, 0.f, 0.f, 0.f)); // 7
 
 	GLuint indices[] =
 	{
@@ -46,12 +46,12 @@ SkyBox::SkyBox(Scene& scene, Shader* shaderProgram) : VisualObject(scene, shader
 
 	initializeOpenGLFunctions();
 	createCubeMap(
-        "../Konteeksamen_3DProg22/Assets/skybox/front.jpg",
-        "../Konteeksamen_3DProg22/Assets/skybox/back.jpg",
-        "../Konteeksamen_3DProg22/Assets/skybox/top.jpg",
-        "../Konteeksamen_3DProg22/Assets/skybox/bottom.jpg",
-        "../Konteeksamen_3DProg22/Assets/skybox/left.jpg",
-        "../Konteeksamen_3DProg22/Assets/skybox/right.jpg",
+        "../Mappeoppgave/Assets/skybox/front.jpg",
+        "../Mappeoppgave/Assets/skybox/back.jpg",
+        "../Mappeoppgave/Assets/skybox/top.jpg",
+        "../Mappeoppgave/Assets/skybox/bottom.jpg",
+        "../Mappeoppgave/Assets/skybox/left.jpg",
+        "../Mappeoppgave/Assets/skybox/right.jpg",
 		mTextureCube);
 
 }
@@ -68,11 +68,11 @@ void SkyBox::init()
 	glGenBuffers(1, &mVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, mVBO);
 
-	glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(Vertex), mVertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, mVertices.size() * sizeof(gsml::Vertex), mVertices.data(), GL_STATIC_DRAW);
 
 	// 1rst attribute buffer : vertices
 	glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gsml::Vertex), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
 	//// 2nd attribute buffer : colors

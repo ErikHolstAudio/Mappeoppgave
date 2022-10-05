@@ -2,14 +2,14 @@
 #include <QVector3D>
 
 TriangleSurface::TriangleSurface(Scene& scene, Shader* shaderProgram) : VisualObject(scene, shaderProgram)
-{  
-//          x    y    z   r  g  b
-Vertex v0{ 0.0, 0.0, 0.0, 1, 0, 0 };    mVertices.push_back(v0);
-Vertex v1( 0.5, 0.0, 0.0, 0, 1, 0 );    mVertices.push_back(v1);
-Vertex v2{ 0.5, 0.5, 0.0, 0, 0, 1 };    mVertices.push_back(v2);
-Vertex v3{ 0.0, 0.0, 0.0, 0, 0, 1 };    mVertices.push_back(v3);
-Vertex v4{ 0.5, 0.5, 0.0, 0, 1, 0 };    mVertices.push_back(v4);
-Vertex v5{ 0.0, 0.5, 0.0, 1, 0, 0 };    mVertices.push_back(v5);
+{
+//                x    y    z   r  g  b
+gsml::Vertex v0{ 0.0, 0.0, 0.0, 1, 0, 0 };    mVertices.push_back(v0);
+gsml::Vertex v1( 0.5, 0.0, 0.0, 0, 1, 0 );    mVertices.push_back(v1);
+gsml::Vertex v2{ 0.5, 0.5, 0.0, 0, 0, 1 };    mVertices.push_back(v2);
+gsml::Vertex v3{ 0.0, 0.0, 0.0, 0, 0, 1 };    mVertices.push_back(v3);
+gsml::Vertex v4{ 0.5, 0.5, 0.0, 0, 1, 0 };    mVertices.push_back(v4);
+gsml::Vertex v5{ 0.0, 0.5, 0.0, 1, 0, 0 };    mVertices.push_back(v5);
 //bShape = new AABB();
 
 }
@@ -36,7 +36,7 @@ void TriangleSurface::readFile(std::string filnavn)
 
     if (inn.is_open()) {
         int n;
-        Vertex vertex;
+        gsml::Vertex vertex;
         inn >> n;
         mVertices.reserve(n);
         for (int i = 0; i < n; i++) {
@@ -54,7 +54,7 @@ void TriangleSurface::writeFile(std::string filnavn)
 
     if (ut.is_open()) {
         int n = mVertices.size();
-        Vertex vertex;
+        gsml::Vertex vertex;
         ut << mVertices.size() << std::endl;
         for (int i = 0; i < n; i++)
         {
@@ -88,24 +88,24 @@ void TriangleSurface::construct()
             float z = function(x, y);
             color = QVector3D(0.1, (z + 1)/ 2, (z + 1) / 2);
 
-            mVertices.push_back(Vertex{ x,   y,   z, color.x(),color.y(),color.z()});
+            mVertices.push_back(gsml::Vertex{ x,   y,   z, color.x(),color.y(),color.z()});
             z = function(x+h,y);
             color = QVector3D(0.1, (z + 1)/ 2, (z + 1) / 2);
 
-            mVertices.push_back(Vertex{ x+h, y,   z, color.x(),color.y(),color.z()});
+            mVertices.push_back(gsml::Vertex{ x+h, y,   z, color.x(),color.y(),color.z()});
             z = function(x,y+h);
             color = QVector3D(0.1, (z + 1)/ 2, (z + 1) / 2);
 
-            mVertices.push_back(Vertex{ x,   y+h, z, color.x(),color.y(),color.z()});
-            mVertices.push_back(Vertex{ x,   y+h, z, color.x(),color.y(),color.z()});
+            mVertices.push_back(gsml::Vertex{ x,   y+h, z, color.x(),color.y(),color.z()});
+            mVertices.push_back(gsml::Vertex{ x,   y+h, z, color.x(),color.y(),color.z()});
             z = function(x+h,y);
             color = QVector3D(0.1, (z + 1)/ 2, (z + 1) / 2);
 
-            mVertices.push_back(Vertex{ x+h, y,   z, color.x(),color.y(),color.z()});
+            mVertices.push_back(gsml::Vertex{ x+h, y,   z, color.x(),color.y(),color.z()});
             z = function(x+h,y+h);
             color = QVector3D(0.1, (z + 1)/ 2, (z + 1) / 2);
 
-            mVertices.push_back(Vertex{ x+h, y+h, z, color.x(),color.y(),color.z()});
+            mVertices.push_back(gsml::Vertex{ x+h, y+h, z, color.x(),color.y(),color.z()});
         }
 }
 

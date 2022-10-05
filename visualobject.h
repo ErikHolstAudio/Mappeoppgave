@@ -5,7 +5,7 @@
 #include <QOpenGLFunctions_4_1_Core>
 #include <QMatrix4x4>
 #include <vector>
-#include "vertex.h"
+#include "Matrix4x4/vertex.h"
 #include "glm/glm.hpp"
 #include "boundingshape.h"
 #include "shader.h"
@@ -60,7 +60,7 @@ public:
 
     bool enemyCollision{ false };
 protected:
-	std::vector<Vertex> mVertices;
+    std::vector<gsml::Vertex> mVertices;
 	std::vector<GLuint> mIndices;
 
 	GLuint mVAO{0};

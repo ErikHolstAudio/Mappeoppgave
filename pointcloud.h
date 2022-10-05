@@ -10,7 +10,7 @@ class PointCloud : public VisualObject
 {
 public:
 
-    PointCloud();
+    PointCloud(Scene& scene, Shader* shaderProgram);
     ~PointCloud();
 
     virtual void init();

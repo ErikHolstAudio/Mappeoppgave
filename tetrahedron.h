@@ -3,7 +3,7 @@
 #include <QOpenGLFunctions_4_1_Core>
 #include <QMatrix4x4>
 #include <vector>
-#include "vertex.h"
+#include "Matrix4x4/vertex.h"
 #include "visualobject.h"
 
 class Tetrahedron : public VisualObject

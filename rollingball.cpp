@@ -2,10 +2,10 @@
 #include <QtMath>
 #include "lazsurface.h"
 
-RollingBall::RollingBall(int n) : OctahedronBall (n)
+RollingBall::RollingBall(Scene& scene, Shader* shaderProgram,int n) :
+    OctahedronBall(mScene, mShaderProgram, n)
 {
     //Important! shader program name must be given
-    mMaterialName = "materialplain";
     mMatrix.setToIdentity();
 
     //mPosition.translate(0.0384,0.0384,0.17); // Starter i venstre hjørne
@@ -23,25 +23,6 @@ RollingBall::RollingBall(int n) : OctahedronBall (n)
     //mAccelerationLine->scale(1);
 }
 
-RollingBall::RollingBall(Scene &scene, Shader *shaderProgram, float radius, QVector3D color)
-{
-    mMaterialName = "materialplain";
-    mMatrix.setToIdentity();
-
-    //mPosition.translate(0.0384,0.0384,0.17); // Starter i venstre hjørne
-    //mPosition.translate(0.822, 0.008, 0.08); // Starter i høyre hjørne
-    //mPosition.translate(1.04,1.04, 0.5f);
-    mPosition.translate(0.04,0.04, 120.5f);
-    mScale.scale(mRadius,mRadius,mRadius);
-    //mScale.scale(m,0.5f,1.5f);
-
-    mMatrix = mPosition * mScale;
-    //Debug line
-    //    mVelocityLine = new Line(mVelocity, mPosition, QVector3D(0,0,0));
-    //    mAccelerationLine = new Line(mAcceleration, mPosition, QVector3D(0,1,0));
-    //mVelocityLine->scale(0.1);
-    //mAccelerationLine->scale(1);
-}
 RollingBall::~RollingBall()
 {
 
@@ -220,15 +201,15 @@ void RollingBall::init()
     glGenBuffers( 1, &mVBO );
     glBindBuffer( GL_ARRAY_BUFFER, mVBO );
 
-    glBufferData( GL_ARRAY_BUFFER, mVertices.size()*sizeof( Vertex ), mVertices.data(), GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, mVertices.size()*sizeof( gsml::Vertex ), mVertices.data(), GL_STATIC_DRAW );
 
     // 1st attribute buffer : vertices
     glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT,GL_FALSE, sizeof(Vertex), reinterpret_cast<GLvoid*>(0));
+    glVertexAttribPointer(0, 3, GL_FLOAT,GL_FALSE, sizeof(gsml::Vertex), reinterpret_cast<GLvoid*>(0));
     glEnableVertexAttribArray(0);
 
     // 2nd attribute buffer : colors
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  sizeof( Vertex ),  reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)) );
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,  sizeof( gsml::Vertex ),  reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)) );
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(0);
@@ -240,7 +221,7 @@ void RollingBall::init()
 
 void RollingBall::draw()
 {
-    mMaterial->UpdateUniforms(&mMatrix);
+    mShaderProgram->loadShader();
 
     glBindVertexArray( mVAO );
     glDrawArrays(GL_TRIANGLES, 0, mVertices.size());//mVertices.size());

@@ -50,11 +50,11 @@ void Scene3::createObjects()
 
 	mObjects.push_back(temp = new HeightMap(*this, mShaderHandler->mShaderProgram[2]));
     temp->setName("heightmap");
-    temp->loadTexture(new Texture("../Konteeksamen_3DProg22/Assets/grass.bmp"));
+    temp->loadTexture(new Texture("../Mappeoppgave/Assets/grass.bmp"));
 
     mapSize = dynamic_cast<HeightMap*>(temp)->getSize()/2;
 
-//    mObjects.push_back(temp = new OBJ(*this, mShaderHandler->mShaderProgram[1], "../Konteeksamen_3DProg22/Assets/monkey2.obj", ""));
+//    mObjects.push_back(temp = new OBJ(*this, mShaderHandler->mShaderProgram[1], "../Mappeoppgave/Assets/monkey2.obj", ""));
 //    temp->move(0.f, 0.f, 8.f);
 //    temp->setName("test");
 

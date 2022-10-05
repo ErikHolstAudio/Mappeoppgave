@@ -40,94 +40,94 @@ void House::construct(QVector3D houseSize, float roofHeight, Point2D doorSize,
     myDoorSize = doorSize;
     doorPosition = QVector3D{doorStart, 0.f, 0.f};
 
-    //Front wall left 
-    mVertices.push_back(Vertex( 0,          0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( doorStart,  0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
+    //Front wall left
+    mVertices.push_back(gsml::Vertex( 0,          0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( doorStart,  0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
 
-    mVertices.push_back(Vertex( doorStart,  0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( doorStart,  0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( doorStart,  0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( doorStart,  0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
     //front wall right 
-    mVertices.push_back(Vertex( doorStop,   0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( houseWidth, 0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( doorStop,   0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( doorStop,   0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, 0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( doorStop,   0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
 
-    mVertices.push_back(Vertex( houseWidth, 0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( houseWidth, 0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( doorStop,   0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, 0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, 0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( doorStop,   0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
     //front wall top 
-    mVertices.push_back(Vertex( 0,          0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( houseWidth, 0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, 0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
 
-    mVertices.push_back(Vertex( houseWidth, 0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( houseWidth, 0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, 0,           doorHeight,  houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, 0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
 
     //left wall
-    mVertices.push_back(Vertex( 0,          houseLength, 0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          houseLength, 0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
 
-    mVertices.push_back(Vertex( 0,          0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
 
     //right wall
-    mVertices.push_back(Vertex( houseWidth, houseLength, 0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( houseWidth, houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex(houseWidth, 0, 0, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, houseLength, 0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex(houseWidth, 0, 0, houseColor.x(), houseColor.y(), houseColor.z()));
 
-    mVertices.push_back(Vertex( houseWidth, 0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( houseWidth, houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex(houseWidth, 0, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, 0,           0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex(houseWidth, 0, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
 
     //back wall
-    mVertices.push_back(Vertex( 0,          houseLength, 0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex(houseWidth, houseLength, 0, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          houseLength, 0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex(houseWidth, houseLength, 0, houseColor.x(), houseColor.y(), houseColor.z()));
 
-    mVertices.push_back(Vertex( houseWidth, houseLength, 0,           houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex( 0,          houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-    mVertices.push_back(Vertex(houseWidth, houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( houseWidth, houseLength, 0,           houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex( 0,          houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+    mVertices.push_back(gsml::Vertex(houseWidth, houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
 
 	if (makeRoof)
 	{
         //roof left
-        mVertices.push_back(Vertex(0,           0,           houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
-        mVertices.push_back(Vertex(houseMid,    0,           totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
-        mVertices.push_back(Vertex(0,           houseLength, houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(0,           0,           houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(houseMid,    0,           totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(0,           houseLength, houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
 
-        mVertices.push_back(Vertex(houseMid,    0,           totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
-        mVertices.push_back(Vertex(houseMid,    houseLength, totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
-        mVertices.push_back(Vertex(0,           houseLength, houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(houseMid,    0,           totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(houseMid,    houseLength, totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(0,           houseLength, houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
 
         //roof right
-        mVertices.push_back(Vertex(houseMid,    0,           totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
-        mVertices.push_back(Vertex(houseWidth,  0,           houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
-        mVertices.push_back(Vertex(houseMid,    houseLength, totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(houseMid,    0,           totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(houseWidth,  0,           houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(houseMid,    houseLength, totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
 
-        mVertices.push_back(Vertex(houseWidth,  0,           houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
-        mVertices.push_back(Vertex(houseWidth,  houseLength, houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
-        mVertices.push_back(Vertex(houseMid,    houseLength, totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(houseWidth,  0,           houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(houseWidth,  houseLength, houseHeight, roofColor.x(), roofColor.y(), roofColor.z()));
+        mVertices.push_back(gsml::Vertex(houseMid,    houseLength, totalHeight, roofColor.x(), roofColor.y(), roofColor.z()));
 
         //roof fill front
 
-        mVertices.push_back(Vertex(0,           0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-        mVertices.push_back(Vertex(houseWidth,  0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-        mVertices.push_back(Vertex(houseMid,    0,           totalHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+        mVertices.push_back(gsml::Vertex(0,           0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+        mVertices.push_back(gsml::Vertex(houseWidth,  0,           houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+        mVertices.push_back(gsml::Vertex(houseMid,    0,           totalHeight, houseColor.x(), houseColor.y(), houseColor.z()));
 
         //roof fill back
-        mVertices.push_back(Vertex(0,           houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-        mVertices.push_back(Vertex(houseWidth,  houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
-        mVertices.push_back(Vertex(houseMid,    houseLength, totalHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+        mVertices.push_back(gsml::Vertex(0,           houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+        mVertices.push_back(gsml::Vertex(houseWidth,  houseLength, houseHeight, houseColor.x(), houseColor.y(), houseColor.z()));
+        mVertices.push_back(gsml::Vertex(houseMid,    houseLength, totalHeight, houseColor.x(), houseColor.y(), houseColor.z()));
 
 	}
 
     if (isInside)
     {
-        std::vector<Vertex> tempVerts;
+        std::vector<gsml::Vertex> tempVerts;
         int count{ 0 };
         for (int i = 0; i < mVertices.size(); i++)
         {
