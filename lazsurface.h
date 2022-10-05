@@ -30,10 +30,10 @@ public:
     //void deLaunay();
     //void triangulate(std::vector<QVector3D>* points);
     static QVector3D calcBarycentric(QVector2D point, QVector2D p1, QVector2D p2, QVector2D p3);
+    const std::vector<QVector2D> getXYZMinMax();
+    bool drawEquidistanceLines{true};
 
-    bool drawEquidistanceLines{false};
-
-    bool mDrawSurface{true};
+    bool mDrawSurface{false};
     bool mDrawPoints{false};
 
 protected:

@@ -1,6 +1,7 @@
 #include "pointcloud.h"
 #include "sortcoords.h"
 #include <iomanip>
+#include "renderwindow.h"
 
 PointCloud::PointCloud(Scene& scene, Shader* shaderProgram) : VisualObject(scene, shaderProgram)
 {
@@ -98,9 +99,11 @@ void PointCloud::draw()
 {
     //Enable for different size, anything over 20 is too big
     //glPointSize(30);
-
-    glBindVertexArray(mVAO);
-    glUniformMatrix4fv(mShaderProgram->mMatrixUniform, 1, GL_FALSE, mMatrix.constData());
-    glDrawArrays(GL_POINTS, 0, mVertices.size());
-    glBindVertexArray(0);
+    if(RenderWindow::bDrawPoint)
+    {
+        glBindVertexArray(mVAO);
+        glPointSize(0.1f);
+        glDrawArrays(GL_POINTS, 0, mVertices.size());
+        glBindVertexArray(0);
+    }
 }

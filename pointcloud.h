@@ -23,4 +23,7 @@ public:
     long double mOffsetX{ 473213.f + 1110 / 2 };
     long double mOffsetY{ 6835647.f + 2110 / 2 };
     long double mOffsetZ{ 1734 };
+
+
+    bool mDrawPoint{true};
 };

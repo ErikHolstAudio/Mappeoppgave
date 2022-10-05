@@ -44,7 +44,7 @@ void LAZSurface::readFile(std::string txtFileName)
         std::vector<QVector3D> points;
 
         //Get point data and set it into an array
-        for (int i = 0; i < amount; i++) //std::getline(inn, str, ' ')
+        for (int i = 0; i < amount; i++)//i+=5) //std::getline(inn, str, ' ')
         {
             float x,y,z;
             inn >> x >> y >> z;
@@ -217,6 +217,7 @@ void LAZSurface::draw()
     //glDrawArrays(GL_TRIANGLES , 0, mVertices.size());
 
     glBindVertexArray(mVAO);
+    glUniformMatrix4fv(mShaderProgram->mMatrixUniform, 1, GL_FALSE, mMatrix.constData());
     glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }
@@ -279,7 +280,7 @@ Equidistance* LAZSurface::constructEquidistance()
         float maxHeight = abc[2]->getXYZ().z;
 
         //Check if triangle lays flat on the equidistance, if so don't add lines and return
-        if(fmod(minHeight, mEquidistance) == 0 && maxHeight == minHeight ) return mEquiLines; // Could potentially alter the color the entire square before returning
+        if(fmod(minHeight, mEquidistance) == 0 && maxHeight == minHeight ) continue;
 
 
         // Checks if there should be a line drawn at the bottom of the triangle
@@ -443,4 +444,13 @@ QVector3D LAZSurface::calcBarycentric(QVector2D point, QVector2D p1, QVector2D p
     baryc.setZ( n.z() / areal_123 );
 
     return baryc;
+}
+
+const std::vector<QVector2D> LAZSurface::getXYZMinMax()
+{
+    QVector2D x2D(xMin,xMax);
+    QVector2D y2D(yMin,yMax);
+    QVector2D z2D(zMin,zMax);
+    const std::vector<QVector2D> result{x2D, y2D, z2D};
+    return result;
 }

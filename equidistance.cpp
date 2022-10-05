@@ -48,7 +48,9 @@ void Equidistance::init()
 }
 
 void Equidistance::draw()
-{
+{   if(!mDrawEnabled)
+        return;
+
     mShaderProgram->loadShader();
     glBindVertexArray( mVAO );
     glDrawArrays(GL_LINES , 0, mVertices.size());

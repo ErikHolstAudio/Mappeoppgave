@@ -2,7 +2,7 @@
 #include <QtMath>
 #include "lazsurface.h"
 
-RollingBall::RollingBall(Scene& scene, Shader* shaderProgram,int n) :
+RollingBall::RollingBall(Scene& scene, Shader* shaderProgram,int n, QVector3D offset ) :
     OctahedronBall(mScene, mShaderProgram, n)
 {
     //Important! shader program name must be given

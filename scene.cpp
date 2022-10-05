@@ -131,7 +131,7 @@ void Scene::renderObjects()
 
 void Scene::renderCamera()
 {
-    mCamera->perspective(60, mRenderWindow.width() / mRenderWindow.height(), 0.1, 100.0); // verticalAngle, aspectRatio, nearPlane,farPlane
+    mCamera->perspective(60, mRenderWindow.width() / mRenderWindow.height(), 0.1, 2000.0); // verticalAngle, aspectRatio, nearPlane,farPlane
 
     //mCamera->lookAt(QVector3D{ 0,0,20 }, QVector3D{ 0,0,0 }, QVector3D{ 0,1,0 });
     mCamera->translate(getPlayer()->getPosition2D().first * -1, getPlayer()->getPosition2D().second * -1, -10.f);

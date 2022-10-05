@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include "glm/glm.hpp"
 
+class PhysicsScene;
 class InteractiveObject;
 class QOpenGLContext;
 class Shader;
@@ -46,8 +47,12 @@ public:
 
     bool bDebugMode{ false };
     inline static bool bDrawEquidistance{true};
+    inline static bool bDrawPoint{true};
     bool bDrawPointCloud{true};
-
+    void spawnBalls(int value);
+    void showEquidistance(bool checked);
+    void showSurface(bool checked);
+    void showPoint(bool checked);
     void debugModeToggle();
     void setNum(int value);
 private slots:
@@ -61,12 +66,12 @@ private:
     //gsml::QuadTre<std::string, VisualObject*> mQuadTre;
 
     std::vector<Scene*> mScenes;
-    Scene* activeScene;
+    Scene* activeScene{nullptr};
     std::vector<VisualObject*> mVisualObjects;
-    InteractiveObject* player;
-
-    Camera* mCamera;
+    InteractiveObject* player{nullptr};
+    Camera* mCamera{nullptr};
     Light* mLight{ nullptr };
+    PhysicsScene* mPScene{nullptr};
 
     void init();            //initialize things we need before rendering
 

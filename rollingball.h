@@ -10,7 +10,7 @@ class LAZSurface;
 class RollingBall : public OctahedronBall
 {
 public:
-    RollingBall(Scene& scene, Shader* shaderProgram, int n);
+    RollingBall(Scene& scene, Shader* shaderProgram, int n, QVector3D offset);
     ~RollingBall() override;
     void init() override;
     void draw() override;

@@ -12,6 +12,8 @@ public:
     void insertLine(QVector3D a, QVector3D b);
     void init() override;
     void draw() override;
+
+    bool mDrawEnabled{false};
 };
 
 #endif // EQUIDISTANCE_H

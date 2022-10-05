@@ -93,22 +93,40 @@ void MainWindow::on_DebugMode_toggled(bool checked)
     if (checked)
     {
         mRenderWindow->debugModeToggle();
-        ui->DebugMode->setText("Debug Mode");
+        ui->DebugMode->setText("Activate Edit mode");
     }
     else
     {
         mRenderWindow->debugModeToggle();
-        ui->DebugMode->setText("Game Mode");
+        ui->DebugMode->setText("Deactivate Edit mode");
     }
 }
 
 void MainWindow::on_SpawnBalls_clicked()
 {
+
 }
 
-void MainWindow::on_BallSliderInt_valueChanged(int value)
+void MainWindow::on_BallSlider_valueChanged(int value)
 {
     mBallsToSpawn = value;
-    //ui->BallInt->setNum(mBallsToSpawn);
+    ui->BallInt->setNum(mBallsToSpawn);
+}
+
+void MainWindow::on_EquidistShow_toggled(bool checked)
+{
+    mRenderWindow->showEquidistance(checked);
+}
+
+
+void MainWindow::on_DrawPoints_toggled(bool checked)
+{
+
+}
+
+
+void MainWindow::on_DrawSurf_toggled(bool checked)
+{
+
 }
 

@@ -12,7 +12,7 @@
 #include "equidistance.h"
 #include "pointcloud.h"
 #include "trianglesurface.h"
-
+#include "lazsurface.h"
 PhysicsScene::PhysicsScene(std::vector<Scene *> scenes, ShaderHandler *handler, RenderWindow &renderWindow, float size) :
     Scene(scenes,handler,renderWindow,size)
 {
@@ -45,7 +45,7 @@ void PhysicsScene::renderObjects()
 
 void PhysicsScene::renderCamera()
 {
-    mCamera->perspective(60, mRenderWindow.width() / mRenderWindow.height(), 0.1, 1000.0); // verticalAngle, aspectRatio, nearPlane,farPlane
+    mCamera->perspective(60, mRenderWindow.width() / mRenderWindow.height(), 0.1, 10000.0); // verticalAngle, aspectRatio, nearPlane,farPlane
     QVector3D playerPos{getPlayer()->getXYZ('x'),getPlayer()->getXYZ('y'),getPlayer()->getXYZ('z')};
     QVector3D camOff{ 0.f,-15.f,10.f }; // The offset of the camera from the player
     QVector3D camPos{ playerPos.x() + camOff.x(),playerPos.y() + camOff.y(),playerPos.z() + camOff.z() };
@@ -57,6 +57,14 @@ void PhysicsScene::renderCamera()
 void PhysicsScene::createObjects()
 {
     VisualObject* temp;
+
+    mObjects.push_back(cloud = new PointCloud(*this, mShaderHandler->mShaderProgram[0]));
+    cloud->setName("PointCloud");
+    mObjects.push_back(surface = new LAZSurface("../Mappeoppgave/Surface/GlitterholetShortened.txt", QVector2D(600,300),*this, mShaderHandler->mShaderProgram[0], QVector3D(-473213.f-1110/2, -6835647.f - 2110/2, -1734.f)));
+    surface->setName("LasFile");
+
+    mObjects.push_back(equidistance = surface->constructEquidistance());
+    equidistance->setName("Equidistance");
     //heightmap
     mObjects.push_back(temp = new HeightMap(*this, mShaderHandler->mShaderProgram[2], new Texture("../Mappeoppgave/Assets/EksamenHeightmap.bmp"),1,0.1f,0.5f,-30.f));
     temp->setName("heightmap");
@@ -79,3 +87,43 @@ void PhysicsScene::createObjects()
     dynamic_cast<InteractiveObject*>(mMap["player"])->setHeightmap(static_cast<HeightMap*>(mMap["heightmap"]));
 }
 
+void PhysicsScene::spawnBalls(int n)
+{
+    const std::vector<QVector2D> xyz = surface->getXYZMinMax();
+    std::srand(std::time(nullptr));
+    float zVar = xyz.at(2)[1] + 10;
+
+    for (int i{};i < n;i++) {
+        float xVar = std::rand() % (int)(xyz.at(0)[1]- xyz.at(0)[0] + xyz.at(0)[0]);
+        float yVar = std::rand() % (int)(xyz.at(1)[0]- xyz.at(1)[1] + xyz.at(1)[0]);
+
+        RollingBall* insertBall = new RollingBall(*this, mShaderHandler->mShaderProgram[0], 4, QVector3D(xVar, yVar, zVar));
+        std::string name = "ball_" + std::to_string(mBalls.size());
+        insertBall->setSurface(surface);
+        insertBall->setName(name);
+        mBalls.push_back(insertBall);
+        spawnObject(insertBall);
+    }
+}
+
+void PhysicsScene::spawnObject(VisualObject *object)
+{
+    object->init();
+    object->mShaderProgram->loadShader();
+    mMap.insert(std::pair<std::string, VisualObject*>{object->getName(),object});
+}
+
+void PhysicsScene::showEquidistance(bool checked)
+{
+    equidistance->mDrawEnabled = checked;
+}
+
+void PhysicsScene::showSurface(bool checked)
+{
+    surface->mDrawSurface = checked;
+}
+
+void PhysicsScene::showPointCloud(bool checked)
+{
+    cloud->mDrawPoint = checked;
+}

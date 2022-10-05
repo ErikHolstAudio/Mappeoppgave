@@ -248,6 +248,42 @@ void RenderWindow::render()
     mContext->swapBuffers(this);
 }
 
+void RenderWindow::showEquidistance(bool checked)
+{
+    for(int i{};i<mScenes.size(); i++){
+        if(activeScene){
+            dynamic_cast<PhysicsScene*>(activeScene)->showEquidistance(checked);
+        }
+    }
+}
+
+void RenderWindow::showSurface(bool checked)
+{
+    for (int i{};i<mScenes.size() ;i++ ) {
+        if(activeScene){
+            dynamic_cast<PhysicsScene*>(activeScene)->showSurface(checked);
+        }
+    }
+}
+
+void RenderWindow::showPoint(bool checked)
+{
+    for (int i{};i<mScenes.size() ;i++ ) {
+        if(activeScene){
+            dynamic_cast<PhysicsScene*>(activeScene)->showPointCloud(checked);
+        }
+    }
+}
+
+void RenderWindow::spawnBalls(int value)
+{
+    for(int i{}; i < mScenes.size(); i++){
+        if(activeScene){
+            dynamic_cast<PhysicsScene*>(activeScene)->spawnBalls(value);
+        }
+    }
+}
+
 //This function is called from Qt when window is exposed (shown)
 // and when it is resized
 //exposeEvent is a overridden function from QWindow that we inherit from

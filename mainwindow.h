@@ -27,7 +27,13 @@ private slots:
 
     void on_SpawnBalls_clicked();
 
-    void on_BallSliderInt_valueChanged(int value);
+    void on_BallSlider_valueChanged(int value);
+
+    void on_EquidistShow_toggled(bool checked);
+
+    void on_DrawPoints_toggled(bool checked);
+
+    void on_DrawSurf_toggled(bool checked);
 
 private:
     ///called from the constructor. Initializes different parts of the program.

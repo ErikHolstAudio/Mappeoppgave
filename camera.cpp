@@ -42,7 +42,7 @@ void Camera::lookAt(const QVector3D &eye, const QVector3D &at, const QVector3D &
             QVector3D angle(
                 glm::degrees(atan2(
                     sqrt(pow(eye.x() - at.x(), 2) + pow(eye.y() - at.y(), 2)),
-                    at.z() - eye.z())) - 90.0f, // the distance between the vectors should not include the Z position distance in it
+                    at.z() - eye.z())) - 89.9f, // the distance between the vectors should not include the Z position distance in it
                 glm::degrees(atan2(at.y() - eye.y(), at.x() - eye.x())
                              ),
                 0.0f);
@@ -80,7 +80,7 @@ void Camera::drawCamera()
 void Camera::keyInput(bool key[5], float speed)
 {
 	if (key[6])
-		speed = speed * 2;
+        speed = speed * 5;
 
     //float moveX{ 0.0f }, moveY{ 0.0f }, moveZ{0.0f};
 
@@ -97,10 +97,10 @@ void Camera::keyInput(bool key[5], float speed)
 		mPosition += speed * QVector3D::crossProduct(mForward, mUp);
 
 	if (key[4]) // Q
-		mPosition += -speed * mUp;
+        mPosition += -speed * mUp*2;
 
 	if (key[5]) // E
-		mPosition += speed * mUp;
+        mPosition += speed * mUp*2;
 
 	//mPosition += QVector3D(moveX, moveY, 0.f);
 }
