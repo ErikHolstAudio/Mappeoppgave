@@ -69,6 +69,7 @@ public:
 
 protected:
     ShaderHandler* mShaderHandler{ nullptr };
+    Shader* plainShader{nullptr};
     XYZ* axis{ nullptr };
 };
 

@@ -25,7 +25,7 @@ OctahedronBall::OctahedronBall(Scene& scene, Shader* shaderProgram, int n) : Vis
 {
 	mVertices.reserve(3 * 8 * pow(4, m_rekursjoner));
 	oktaederUnitBall();
-	bShape = new AABB();
+    bShape = new AABB();
 
 }
 

@@ -36,7 +36,8 @@ public:
 
     virtual void trigger(VisualObject* player) { ; };
     virtual void collision(VisualObject* player) { ; };
-    virtual void activate() { ; };
+    virtual void
+    activate() { ; };
 
     void calculateNormals();
 

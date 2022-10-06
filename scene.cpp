@@ -42,7 +42,7 @@ Scene::~Scene()
 
 void Scene::createObjects()
 {
-    Shader* plainShader = mShaderHandler->mShaderProgram[0];
+    plainShader = mShaderHandler->mShaderProgram[0];
     VisualObject* temp;
     mObjects.push_back(temp = new XYZ(*this, plainShader));
     temp->setName("xyz");

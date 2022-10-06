@@ -16,14 +16,15 @@ public:
     virtual void init();
     virtual void draw();
 
+
     long double mScaleMultiplyX{ 1.f };
     long double mScaleMultiplyY{ 1.f };
     long double mScaleMultiplyZ{ 1.f };
 
     long double mOffsetX{ 473213.f + 1110 / 2 };
     long double mOffsetY{ 6835647.f + 2110 / 2 };
-    long double mOffsetZ{ 1734 };
+    long double mOffsetZ{ 1300 };
 
 
-    bool mDrawPoint{true};
+    bool mDrawPoint;
 };

@@ -41,6 +41,12 @@ void PhysicsScene::renderObjects()
     dynamic_cast<SkyBoxShader*>(mShaderHandler->mShaderProgram[3])->init(mCamera);
     for (auto it = mMap.begin(); it != mMap.end(); it++)
         (*it).second->draw();
+
+    //dynamic_cast<RollingBall*>(mMap["ball"])->move(0.001f);
+    for (int var = 0; var < mBalls.size(); ++var) {
+        mBalls.at(var)->move(0.01f);
+        mBalls.at(var)->draw();
+    }
 }
 
 void PhysicsScene::renderCamera()
@@ -57,11 +63,20 @@ void PhysicsScene::renderCamera()
 void PhysicsScene::createObjects()
 {
     VisualObject* temp;
+    //OctahedronBall* OB;
+    //RollingBall* RB;
 
     mObjects.push_back(cloud = new PointCloud(*this, mShaderHandler->mShaderProgram[0]));
     cloud->setName("PointCloud");
+
     mObjects.push_back(surface = new LAZSurface("../Mappeoppgave/Surface/GlitterholetShortened.txt", QVector2D(600,300),*this, mShaderHandler->mShaderProgram[0], QVector3D(-473213.f-1110/2, -6835647.f - 2110/2, -1734.f)));
     surface->setName("LasFile");
+
+    //mObjects.push_back(OB = new OctahedronBall(*this, mShaderHandler->mShaderProgram[0], 4));
+    //OB->setName("Baller");
+    //mObjects.push_back(RB = new RollingBall(*this, mShaderHandler->mShaderProgram[0], 4, QVector3D(0.f,0.f,1000.f)));
+    //RB->setName("Baller");
+    //RB->setSurface(surface);
 
     mObjects.push_back(equidistance = surface->constructEquidistance());
     equidistance->setName("Equidistance");
@@ -97,7 +112,7 @@ void PhysicsScene::spawnBalls(int n)
         float xVar = std::rand() % (int)(xyz.at(0)[1]- xyz.at(0)[0] + xyz.at(0)[0]);
         float yVar = std::rand() % (int)(xyz.at(1)[0]- xyz.at(1)[1] + xyz.at(1)[0]);
 
-        RollingBall* insertBall = new RollingBall(*this, mShaderHandler->mShaderProgram[0], 4, QVector3D(xVar, yVar, zVar));
+        RollingBall* insertBall = new RollingBall(*this, mShaderHandler->mShaderProgram[1], 4, QVector3D(xVar, yVar, zVar));
         std::string name = "ball_" + std::to_string(mBalls.size());
         insertBall->setSurface(surface);
         insertBall->setName(name);
@@ -109,7 +124,6 @@ void PhysicsScene::spawnBalls(int n)
 void PhysicsScene::spawnObject(VisualObject *object)
 {
     object->init();
-    object->mShaderProgram->loadShader();
     mMap.insert(std::pair<std::string, VisualObject*>{object->getName(),object});
 }
 

@@ -33,7 +33,7 @@ public:
     const std::vector<QVector2D> getXYZMinMax();
     bool drawEquidistanceLines{true};
 
-    bool mDrawSurface{false};
+    bool mDrawSurface;
     bool mDrawPoints{false};
 
 protected:

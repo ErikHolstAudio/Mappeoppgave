@@ -1,17 +1,19 @@
 #include "rollingball.h"
 #include <QtMath>
 #include "lazsurface.h"
+#include <iostream>
 
 RollingBall::RollingBall(Scene& scene, Shader* shaderProgram,int n, QVector3D offset ) :
-    OctahedronBall(mScene, mShaderProgram, n)
+    OctahedronBall(scene, shaderProgram, n)
 {
     //Important! shader program name must be given
     mMatrix.setToIdentity();
-
+    ///! info about the shader
+    //std::cout << "Shader som blir brukt: " << mShaderProgram->getProgram() << std::endl;
     //mPosition.translate(0.0384,0.0384,0.17); // Starter i venstre hjørne
     //mPosition.translate(0.822, 0.008, 0.08); // Starter i høyre hjørne
     //mPosition.translate(1.04,1.04, 0.5f);
-    mPosition.translate(0.04,0.04, 120.5f);
+    mPosition.translate(offset.x(),offset.y(), offset.z());
     mScale.scale(mRadius,mRadius,mRadius);
     //mScale.scale(m,0.5f,1.5f);
 
@@ -29,7 +31,7 @@ RollingBall::~RollingBall()
 }
 void RollingBall::move(float dt)
 {
-    std::cout << "deltaTime:" << dt << std::endl;
+    //std::cout << "deltaTime:" << dt << std::endl;
     int trianglesBallIsWithin{0};
     std::vector<QVector3D> verticesPos = dynamic_cast<LAZSurface*>(mSurface)->getTriangleVertices(getPosition());
 
@@ -59,18 +61,18 @@ void RollingBall::move(float dt)
 
             QVector3D N_force = triangleNormal* abs(mGravity).z() * mMass * cosAlpha;
 
-            std::cout << "N Force: "<< N_force.x() << ", " << N_force.y() << N_force.z() << std::endl;
-            std::cout << "Cos A: "<< cos(cosAlpha) << std::endl;
+            //std::cout << "N Force: "<< N_force.x() << ", " << N_force.y() << N_force.z() << std::endl;
+            //std::cout << "Cos A: "<< cos(cosAlpha) << std::endl;
 
             //Oppdatere hastighet og posisjon, ink. deltaTime
             QVector3D newAcc = (N_force+(mGravity*mMass)) / mMass;
-            std::cout << "Acceleration: " <<  mAcceleration.x() << ", " << mAcceleration.y() << ", " << mAcceleration.z() << std::endl;
+            //std::cout << "Acceleration: " <<  mAcceleration.x() << ", " << mAcceleration.y() << ", " << mAcceleration.z() << std::endl;
 
             QVector3D newVel = mVelocity + (newAcc + mAcceleration)*(dt * 0.5f); // Multiplying here to reduce speed when testing
             QVector3D newFriction = -newVel.normalized() * mGroundFriction;
             newVel += mFrictionForce;
-            std::cout <<"dt: " << std::to_string(dt) << std::endl;
-            mPosition.translate((mVelocity.x() * dt  + mAcceleration.x() * (pow(dt, 2) * 0.5f)) * timeSlowDown,
+            //std::cout <<"dt: " << std::to_string(dt) << std::endl;
+            mPosition.translate((mVelocity.x() * dt + mAcceleration.x() * (pow(dt, 2) * 0.5f)) * timeSlowDown,
                                 (mVelocity.y() * dt + mAcceleration.y() * (pow(dt, 2) * 0.5f)) * timeSlowDown,
                                 (mVelocity.z() * dt + mAcceleration.z() * (pow(dt, 2) * 0.5f)) * timeSlowDown);
 
@@ -83,7 +85,7 @@ void RollingBall::move(float dt)
             QVector3D p = getPosition();
 
             float distance = QVector3D::dotProduct( triangleNormal,( p - p_0 ));
-            std::cout << "distance: " << distance << std::endl;
+            //std::cout << "distance: " << distance << std::endl;
 
             //Moves the ball up, so that it snaps to the triangle
             if(sqrt(distance * distance) <= mRadius/* && sqrt(distance * distance) >= 0*/){
@@ -105,9 +107,9 @@ void RollingBall::move(float dt)
                 //QVector3D VelocityAfter = mVelocity - triangleNormal * QVector3D::dotProduct(mVelocity,triangleNormal)  * 2
                 QVector3D VelocityAfter = (mVelocity - triangleNormal * QVector3D::dotProduct(mVelocity,triangleNormal)  * 2) * (1 - mGroundFriction);
 
-                std::cout << "FLIP!" << std::endl;
-                std::cout << "Velocity: " << mVelocity.x() << ", " << mVelocity.y() << ", " <<mVelocity.z() << std::endl;
-                std::cout << "VelocityAfter: " << VelocityAfter.x() << ", " << VelocityAfter.y() << ", " << VelocityAfter.z() << std::endl;
+                //std::cout << "FLIP!" << std::endl;
+                //std::cout << "Velocity: " << mVelocity.x() << ", " << mVelocity.y() << ", " <<mVelocity.z() << std::endl;
+                //std::cout << "VelocityAfter: " << VelocityAfter.x() << ", " << VelocityAfter.y() << ", " << VelocityAfter.z() << std::endl;
                 mVelocity = VelocityAfter;
             }
             else
@@ -117,7 +119,7 @@ void RollingBall::move(float dt)
 
                     // beregn normalen til kollisjonsplanet, se ligning (9)
                     QVector3D collisionPlaneNormal = (triangleNormal + oldNormal) / (triangleNormal + oldNormal).length();
-                    std::cout <<"CollisionPlanenormal " << collisionPlaneNormal.x() << ", " << collisionPlaneNormal.y() << ", " << collisionPlaneNormal.z() << std::endl;
+                    //std::cout <<"CollisionPlanenormal " << collisionPlaneNormal.x() << ", " << collisionPlaneNormal.y() << ", " << collisionPlaneNormal.z() << std::endl;
                     // Korrigere posisjon oppover i normalens retning
 
 
@@ -125,8 +127,8 @@ void RollingBall::move(float dt)
 
                     //VelocityAfter = VelocityAfter + QVector3D(0,0,-3.3);
 
-                    std::cout << "Velocity: " << mVelocity.x() << ", " << mVelocity.y() << ", " <<mVelocity.z() << std::endl;
-                    std::cout << "VelocityAfter: " << VelocityAfter.x() << ", " << VelocityAfter.y() << ", " << VelocityAfter.z() << std::endl;
+                    //std::cout << "Velocity: " << mVelocity.x() << ", " << mVelocity.y() << ", " <<mVelocity.z() << std::endl;
+                    //std::cout << "VelocityAfter: " << VelocityAfter.x() << ", " << VelocityAfter.y() << ", " << VelocityAfter.z() << std::endl;
                     mVelocity = VelocityAfter;
 
                     //QVector3D m = QVector3D::cross(vertices[oldTriangleIndex].to3DVec()*vertices[oldTriangleIndex+1].to3DVec(),vertices[oldTriangleIndex].to3DVec()*vertices[oldTriangleIndex+2].to3DVec());
@@ -151,8 +153,8 @@ void RollingBall::move(float dt)
         mAcceleration = newAcc;
         mVelocity = newVel;
 
-        std::cout << "Acceleration: " <<  mAcceleration.x() << ", " << mAcceleration.y() << ", " << mAcceleration.z() << std::endl;
-        std::cout << "Velocity: " <<  mVelocity.x() << ", " << mVelocity.y() << ", " << mVelocity.z() << std::endl;
+        //std::cout << "Acceleration: " <<  mAcceleration.x() << ", " << mAcceleration.y() << ", " << mAcceleration.z() << std::endl;
+        //std::cout << "Velocity: " <<  mVelocity.x() << ", " << mVelocity.y() << ", " << mVelocity.z() << std::endl;
 
         oldTriangleIndex = -1;
     }
@@ -221,9 +223,11 @@ void RollingBall::init()
 
 void RollingBall::draw()
 {
+    //initializeOpenGLFunctions();
     mShaderProgram->loadShader();
 
     glBindVertexArray( mVAO );
+    glUniformMatrix4fv(mShaderProgram->mMatrixUniform,1, GL_FALSE, mMatrix.constData());
     glDrawArrays(GL_TRIANGLES, 0, mVertices.size());//mVertices.size());
     //mVelocityLine->draw();
     //mAccelerationLine->draw();

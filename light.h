@@ -14,12 +14,12 @@ public:
     bool bMove{false};
 
     VisualObject* mLightSource{nullptr};
-    GLfloat mAmbientStrenght{ 0.3f };
+    GLfloat mAmbientStrenght{ 1.f };
     QVector3D mAmbientColor{ 0.3f, 0.3f, 0.3f };  //Grey
 
-    GLfloat mLightStrenght{ 0.7f };
+    GLfloat mLightStrenght{ 1.f };
     QVector3D mLightColor{ 0.9f, 0.9f, 0.3f };    //Yellow
 
-    GLfloat mSpecularStrenght{ 0.9f };
+    GLfloat mSpecularStrenght{ 1.f };
     GLint mSpecularExponent{ 4 };
 };

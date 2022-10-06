@@ -104,7 +104,7 @@ void MainWindow::on_DebugMode_toggled(bool checked)
 
 void MainWindow::on_SpawnBalls_clicked()
 {
-
+    mRenderWindow->spawnBalls(mBallsToSpawn);
 }
 
 void MainWindow::on_BallSlider_valueChanged(int value)
@@ -121,12 +121,12 @@ void MainWindow::on_EquidistShow_toggled(bool checked)
 
 void MainWindow::on_DrawPoints_toggled(bool checked)
 {
-
+    mRenderWindow->showPoint(checked);
 }
 
 
 void MainWindow::on_DrawSurf_toggled(bool checked)
 {
-
+    mRenderWindow->showSurface(checked);
 }
 

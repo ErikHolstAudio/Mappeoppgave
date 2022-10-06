@@ -23,7 +23,6 @@ bool compare(QVector3D i1,QVector3D i2)
         if(i1.y() < i2.y())
             return 1;
     }
-
     return (i1.x() < i2.x());
 }
 
@@ -44,7 +43,7 @@ void LAZSurface::readFile(std::string txtFileName)
         std::vector<QVector3D> points;
 
         //Get point data and set it into an array
-        for (int i = 0; i < amount; i++)//i+=5) //std::getline(inn, str, ' ')
+        for (int i = 0; i < amount; i++) //std::getline(inn, str, ' ')
         {
             float x,y,z;
             inn >> x >> y >> z;
@@ -215,11 +214,12 @@ void LAZSurface::draw()
 
     //glBindVertexArray( mVAO );
     //glDrawArrays(GL_TRIANGLES , 0, mVertices.size());
-
+    if(!mDrawSurface){ return;}
     glBindVertexArray(mVAO);
     glUniformMatrix4fv(mShaderProgram->mMatrixUniform, 1, GL_FALSE, mMatrix.constData());
     glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
+
 }
 
 

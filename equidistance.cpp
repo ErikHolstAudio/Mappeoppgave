@@ -48,7 +48,8 @@ void Equidistance::init()
 }
 
 void Equidistance::draw()
-{   if(!mDrawEnabled)
+{
+    if(!mDrawEnabled)
         return;
 
     mShaderProgram->loadShader();

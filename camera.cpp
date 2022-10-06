@@ -85,22 +85,22 @@ void Camera::keyInput(bool key[5], float speed)
     //float moveX{ 0.0f }, moveY{ 0.0f }, moveZ{0.0f};
 
 	if (key[0]) // W
-		mPosition += speed * mForward;
+        mPosition += speed * mForward*10;
 
 	if (key[1]) // A
-		mPosition += -speed * QVector3D::crossProduct(mForward,mUp);
+        mPosition += -speed * QVector3D::crossProduct(mForward,mUp)*10;
 
 	if (key[2]) // S
-		mPosition += -speed * mForward;
+        mPosition += -speed * mForward*10;
 
 	if (key[3]) // D
-		mPosition += speed * QVector3D::crossProduct(mForward, mUp);
+        mPosition += speed * QVector3D::crossProduct(mForward, mUp)*10;
 
 	if (key[4]) // Q
-        mPosition += -speed * mUp*2;
+        mPosition += -speed * mUp*10;
 
 	if (key[5]) // E
-        mPosition += speed * mUp*2;
+        mPosition += speed * mUp*10;
 
 	//mPosition += QVector3D(moveX, moveY, 0.f);
 }
